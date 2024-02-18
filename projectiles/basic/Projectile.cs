@@ -24,13 +24,13 @@ public partial class Projectile : Node2D
 
 	public override void _Process(double delta)
 	{
-		Position += direction * (float)delta;
+		Position += Speed * direction * (float)delta;
 	}
 
-	public void Start(Vector2 position, float rotation, Player parent)
+	public void Start(Vector2 position, Vector2 direction, Player parent)
 	{
 		Position = position;
-		direction = new Vector2(Speed, 0).Rotated(rotation);
+		this.direction = direction;
 		this.parent = parent;
 	}
 

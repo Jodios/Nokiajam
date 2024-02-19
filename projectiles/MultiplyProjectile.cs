@@ -1,10 +1,16 @@
 using Godot;
 
-public partial class Projectile : Node2D
+/**
+I still don't know what the best approach to doing this is. 
+For now I will NOT use this type. I will just spawn multiple
+basic projectiles in the player node.
+**/
+public partial class MultiplyProjectile : Node2D
 {
 
 	[Export] public int Speed = 50;
 	[Export] public float Damage = 20;
+	[Export] public float Piercing = 20;
 
 	private Vector2 direction = Vector2.Zero;
 
@@ -27,7 +33,11 @@ public partial class Projectile : Node2D
 		Position += Speed * direction * (float)delta;
 	}
 
-	public void Start(Vector2 position, Vector2 direction, Player parent)
+	public void Start(
+		Vector2 position,
+		Vector2 direction,
+		Player parent
+	)
 	{
 		Position = position;
 		this.direction = direction;

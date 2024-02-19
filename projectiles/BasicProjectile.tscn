@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8o35y2lf5lh8"]
 
-[ext_resource type="Script" path="res://projectiles/basic/Projectile.cs" id="1_tllq5"]
-[ext_resource type="Texture2D" uid="uid://bs2thqyuim8ux" path="res://assets/projectile.png" id="2_07ppm"]
+[ext_resource type="Script" path="res://projectiles/BasicProjectile.cs" id="1_bk66f"]
+[ext_resource type="Texture2D" uid="uid://bs2thqyuim8ux" path="res://assets/projectile.png" id="2_hlrnk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6s2nm"]
 size = Vector2(1, 1)
 
 [node name="Projectile" type="Node2D"]
-script = ExtResource("1_tllq5")
+script = ExtResource("1_bk66f")
 
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -17,4 +17,4 @@ collision_mask = 10
 shape = SubResource("RectangleShape2D_6s2nm")
 
 [node name="Projectile" type="Sprite2D" parent="."]
-texture = ExtResource("2_07ppm")
+texture = ExtResource("2_hlrnk")

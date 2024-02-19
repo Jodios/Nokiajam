@@ -5,8 +5,8 @@ public partial class Player : CharacterBody2D
 {
 	[Export] public float MaxHealth { set; get; } = 100.00f;
 	[Export] public float Speed = 900;
+	[Export] public ProjectileTypes.Type ProjectileType = ProjectileTypes.Type.Multiply;
 	private MeshInstance2D player;
-	private PackedScene projectileScene = GD.Load<PackedScene>("res://projectiles/basic/Projectile.tscn");
 	private float health;
 	[Signal] public delegate void PlayerPerishedEventHandler();
 	private Global global;
@@ -49,8 +49,42 @@ public partial class Player : CharacterBody2D
 	{
 		if (Input.IsActionJustPressed("shoot"))
 		{
-			Projectile projectile = (Projectile)projectileScene.Instantiate();
-			projectile.Start(GlobalPosition + new Vector2(0, 0), previousDirection, this);
+			switch (ProjectileType)
+			{
+				case ProjectileTypes.Type.Basic:
+					SpawnProjectile("res://projectiles/BasicProjectile.tscn");
+					break;
+				case ProjectileTypes.Type.Multiply:
+					MultiplyProjectile("res://projectiles/BasicProjectile.tscn");
+					break;
+				default:
+					SpawnProjectile("res://projectiles/BasicProjectile.tscn");
+					break;
+			}
+		}
+	}
+
+	private void SpawnProjectile(string path)
+	{
+		PackedScene projectileScene = GD.Load<PackedScene>(path);
+		var projectile = projectileScene.Instantiate();
+		projectile.Call("Start", GlobalPosition + new Vector2(0, 0), previousDirection, this);
+		GetTree().Root.AddChild(projectile);
+	}
+
+	private void MultiplyProjectile(string path)
+	{
+		PackedScene projectileScene = GD.Load<PackedScene>(path);
+		for (int i = 0; i < 6; i++)
+		{
+			var multiplier = i%2 == 0 ? 1 : -1;
+			var projectile = projectileScene.Instantiate();
+			projectile.Call(
+				"Start",
+				GlobalPosition + new Vector2(0, 0),
+				previousDirection.Rotated(Mathf.DegToRad(i*6*multiplier)),
+				this
+			);
 			GetTree().Root.AddChild(projectile);
 		}
 	}

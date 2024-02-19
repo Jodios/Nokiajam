@@ -11,6 +11,8 @@ public partial class Player : CharacterBody2D
 	[Signal] public delegate void PlayerPerishedEventHandler();
 	private Global global;
 	private Vector2 previousDirection;
+	private Timer cooldownTimer;
+	private bool coolingDown = false;
 
 	public override void _Ready()
 	{
@@ -20,6 +22,11 @@ public partial class Player : CharacterBody2D
 		player = GetNode<MeshInstance2D>("player");
 		health = MaxHealth;
 		Modulate = Global.theme["primary"];
+		cooldownTimer = GetNode<Timer>("cooldown");
+		cooldownTimer.Timeout += () =>
+		{
+			coolingDown = false;
+		};
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -47,8 +54,11 @@ public partial class Player : CharacterBody2D
 
 	private void HandleShootingAction()
 	{
+		if (coolingDown) return;
 		if (Input.IsActionJustPressed("shoot"))
 		{
+			coolingDown = true;
+			cooldownTimer.Start();
 			switch (ProjectileType)
 			{
 				case ProjectileTypes.Type.Basic:
@@ -75,14 +85,14 @@ public partial class Player : CharacterBody2D
 	private void MultiplyProjectile(string path)
 	{
 		PackedScene projectileScene = GD.Load<PackedScene>(path);
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 7; i++)
 		{
-			var multiplier = i%2 == 0 ? 1 : -1;
+			var multiplier = i % 2 == 0 ? 1 : -1;
 			var projectile = projectileScene.Instantiate();
-			projectile.Call(
+			projectile.CallDeferred(
 				"Start",
 				GlobalPosition + new Vector2(0, 0),
-				previousDirection.Rotated(Mathf.DegToRad(i*6*multiplier)),
+				previousDirection.Rotated(Mathf.DegToRad(i * 6 * multiplier)),
 				this
 			);
 			GetTree().Root.AddChild(projectile);

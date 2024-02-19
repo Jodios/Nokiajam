@@ -21,6 +21,9 @@ public partial class BasicProjectile : Node2D
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
 		Modulate = Global.theme["primary"];
+		GetTree().CreateTimer(1).Timeout += () => {
+			QueueFree();
+		};
 	}
 
 	public override void _Process(double delta)

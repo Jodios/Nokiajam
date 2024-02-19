@@ -16,3 +16,6 @@ mesh = SubResource("BoxMesh_g86r0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yp1qp")
+
+[node name="cooldown" type="Timer" parent="."]
+wait_time = 0.5

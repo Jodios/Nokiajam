@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://de5th28ua2gxc"]
+[gd_scene load_steps=7 format=3 uid="uid://de5th28ua2gxc"]
 
 [ext_resource type="PackedScene" uid="uid://kji6pcjky1s3" path="res://player/Player.tscn" id="1_ce4hu"]
 [ext_resource type="Script" path="res://levels/Main.cs" id="1_mqs55"]
@@ -9,7 +9,7 @@
 size = Vector2(84, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwreo"]
-size = Vector2(7.4375, 68)
+size = Vector2(7.71875, 68)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_mqs55")
@@ -46,6 +46,5 @@ position = Vector2(-3.8125, 24)
 shape = SubResource("RectangleShape2D_xwreo")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="border" groups=["border"]]
-position = Vector2(87.7188, 24)
+position = Vector2(87.8594, 24)
 shape = SubResource("RectangleShape2D_xwreo")
-position = Vector2(43, 25)

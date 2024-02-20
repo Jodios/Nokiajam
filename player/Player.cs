@@ -3,11 +3,13 @@ using Godot;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public float MaxHealth { set; get; } = 100.00f;
+	[Export] public int MaxHealth { set; get; } = 3;
+	[Export] public int MaxStuns { set; get; } = 3;
 	[Export] public float Speed = 900;
 	[Export] public ProjectileTypes.Type ProjectileType = ProjectileTypes.Type.Multiply;
 	private MeshInstance2D player;
-	private float health;
+	public int Health { set; get; } = 0;
+	public int Stuns { set; get; } = 0;
 	[Signal] public delegate void PlayerPerishedEventHandler();
 	private Global global;
 	private Vector2 previousDirection;
@@ -20,7 +22,8 @@ public partial class Player : CharacterBody2D
 		global = GetNode<Global>("/root/Global");
 		AddToGroup(Global.Player);
 		player = GetNode<MeshInstance2D>("player");
-		health = MaxHealth;
+		Health = MaxHealth;
+		Stuns = MaxStuns;
 		Modulate = Global.theme["primary"];
 		cooldownTimer = GetNode<Timer>("cooldown");
 		cooldownTimer.Timeout += () =>
@@ -36,10 +39,10 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Damage(float damage)
+	public void Damage(int damage)
 	{
-		health -= damage;
-		if (health <= 0)
+		Health -= damage;
+		if (Health <= 0)
 		{
 			Die();
 		}

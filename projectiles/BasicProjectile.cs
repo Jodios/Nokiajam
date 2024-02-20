@@ -21,9 +21,6 @@ public partial class BasicProjectile : Node2D
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
 		Modulate = Global.theme["primary"];
-		GetTree().CreateTimer(1).Timeout += () => {
-			QueueFree();
-		};
 	}
 
 	public override void _Process(double delta)
@@ -44,6 +41,10 @@ public partial class BasicProjectile : Node2D
 
 	private void HitboxCollisionHandler(Node2D body)
 	{
+		if (body.IsInGroup(Global.Border))
+		{
+			QueueFree();
+		}
 		if (!body.IsInGroup(Global.Enemy)) return;
 
 		if (body is Enemy)

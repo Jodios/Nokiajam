@@ -28,6 +28,7 @@ public partial class Global : Node
 
 	public const string Enemy = "enemy";
 	public const string Player = "player";
+	public const string Border = "border";
 
 	public Node CurrentScene { get; set; }
 

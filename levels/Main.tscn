@@ -1,8 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://de5th28ua2gxc"]
+[gd_scene load_steps=6 format=3 uid="uid://de5th28ua2gxc"]
 
 [ext_resource type="PackedScene" uid="uid://kji6pcjky1s3" path="res://player/Player.tscn" id="1_ce4hu"]
+[ext_resource type="PackedScene" uid="uid://dw4ophk8uidr7" path="res://items/Freeze.tscn" id="4_3pfaj"]
+[ext_resource type="PackedScene" uid="uid://bnasa2jjmrkb7" path="res://items/Health.tscn" id="5_fqfga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s2dg"]
+size = Vector2(84, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwreo"]
+size = Vector2(7.4375, 68)
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ce4hu")]
 position = Vector2(13, 8)
+
+[node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]
+position = Vector2(31, 12)
+
+[node name="Health" parent="." instance=ExtResource("5_fqfga")]
+position = Vector2(42, 12)
+
+[node name="Health2" parent="." instance=ExtResource("5_fqfga")]
+position = Vector2(42, 22)
+
+[node name="Freeze2" parent="." instance=ExtResource("4_3pfaj")]
+position = Vector2(31, 22)
+
+[node name="border" type="StaticBody2D" parent="." groups=["border"]]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border" groups=["border"]]
+position = Vector2(42, -5)
+shape = SubResource("RectangleShape2D_5s2dg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="border" groups=["border"]]
+position = Vector2(42, 53)
+shape = SubResource("RectangleShape2D_5s2dg")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="border" groups=["border"]]
+position = Vector2(-3.8125, 24)
+shape = SubResource("RectangleShape2D_xwreo")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="border" groups=["border"]]
+position = Vector2(87.7188, 24)
+shape = SubResource("RectangleShape2D_xwreo")

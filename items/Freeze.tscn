@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw4ophk8uidr7"]
+
+[ext_resource type="Script" path="res://items/Freeze.cs" id="1_mfhrn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8jbpp"]
+size = Vector3(1, 3, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkhlf"]
+size = Vector2(1, 3)
+
+[node name="Freeze" type="Node2D"]
+script = ExtResource("1_mfhrn")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("BoxMesh_8jbpp")
+
+[node name="pickupArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupArea"]
+shape = SubResource("RectangleShape2D_gkhlf")

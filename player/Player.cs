@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using Godot.Collections;
 
 public partial class Player : CharacterBody2D
 {
@@ -36,6 +36,7 @@ public partial class Player : CharacterBody2D
 	{
 		HandleMovement(delta);
 		HandleShootingAction();
+		HandleStunAction();
 		MoveAndSlide();
 	}
 
@@ -53,6 +54,18 @@ public partial class Player : CharacterBody2D
 		Speed = 0;
 		QueueFree();
 		EmitSignal("PlayerPerished");
+	}
+
+	private void HandleStunAction()
+	{
+		if (Input.IsActionJustPressed("freeze"))
+		{
+			Array<Node> enemies = GetTree().GetNodesInGroup(Global.Enemy);
+			foreach (var enemy in enemies)
+			{
+				enemy.Call("Stun");
+			}
+		}
 	}
 
 	private void HandleShootingAction()

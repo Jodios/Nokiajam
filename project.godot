@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*res://Global.cs"
 ProjectileTypes="*res://projectiles/ProjectileTypes.cs"
+SoundUtils="*res://utils/SoundUtils.cs"
 
 [display]
 

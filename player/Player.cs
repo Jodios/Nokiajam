@@ -68,6 +68,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (Input.IsActionJustPressed("freeze"))
 		{
+			soundUtils.PlayFreezeActionSound();
 			Array<Node> enemies = GetTree().GetNodesInGroup(Global.Enemy);
 			foreach (var enemy in enemies)
 			{

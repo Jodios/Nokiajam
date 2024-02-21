@@ -66,6 +66,7 @@ public partial class Enemy : CharacterBody2D
 	private void Die()
 	{
 		speed = 0;
+		Global.statsTracker.AddEnemyDeath();
 		QueueFree();
 	}
 	

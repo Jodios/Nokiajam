@@ -13,13 +13,12 @@ public partial class BasicProjectile : Node2D
 
 	private Player parent;
 
-	private Global global;
-
 	public override void _Ready()
 	{
-		global = GetNode<Global>("/root/Global");
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
+		Modulate = Global.theme["primary"];
+		Global.statsTracker.AddShotFired();
 	}
 
 	public override void _Process(double delta)
@@ -49,6 +48,7 @@ public partial class BasicProjectile : Node2D
 
 		if (body is Enemy)
 		{
+			Global.statsTracker.AddShotLanded();
 			Enemy enemy = (Enemy)body;
 			enemy.Damage(Damage);
 		}

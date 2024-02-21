@@ -15,6 +15,8 @@ public partial class Main : Node2D
 		enemySpawnTimer.WaitTime = EnemySpawnInterval;
 		enemySpawnTimer.Connect("timeout", new Callable(this, nameof(OnEnemySpawnTimeout)));
 		enemySpawnTimer.Start();
+		Global.statsTracker.StartGame();
+	}
 		background = GetNode<ColorRect>("background");
 	}
 

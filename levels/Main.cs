@@ -6,17 +6,26 @@ public partial class Main : Node2D
 	[Export] public float EnemySpawnInterval = 2;
 	[Export] public int MaxEnemySpawns = 10;
 	private Timer enemySpawnTimer;
-	
+	private ColorRect background;
+
 	public override void _Ready()
 	{
 		enemySpawnTimer = new Timer();
 		AddChild(enemySpawnTimer);
 		enemySpawnTimer.WaitTime = EnemySpawnInterval;
-		enemySpawnTimer.Connect("timeout", new Callable(this, nameof(OnEnemySpawnTimeout)));
+		enemySpawnTimer.Timeout += OnEnemySpawnTimeout;
 		enemySpawnTimer.Start();
 		Global.statsTracker.StartGame();
+		background = GetNode<ColorRect>("background");
 	}
-	
+
+	public override void _Process(double delta)
+	{
+		// doing anything related to gui changes should be done here. This function
+		// is called every frame which can change....physics process is constant 
+		Modulate = Global.theme["primary"];
+	}
+
 	private void OnEnemySpawnTimeout()
 	{
 		if (GetEnemyCount() < MaxEnemySpawns)
@@ -24,7 +33,7 @@ public partial class Main : Node2D
 			SpawnEnemy(EnemyTypes.Type.Normal);
 		}
 	}
-	
+
 	private int GetEnemyCount()
 	{
 		int enemyCount = 0;
@@ -37,7 +46,7 @@ public partial class Main : Node2D
 		}
 		return enemyCount;
 	}
-	
+
 	private void SpawnEnemy(EnemyTypes.Type type)
 	{
 		PackedScene enemyScene = GD.Load<PackedScene>("res://enemies/basic/Enemy.tscn");
@@ -46,7 +55,7 @@ public partial class Main : Node2D
 		enemy.Position = RandomSpawnPosition();
 		GetTree().Root.AddChild(enemy);
 	}
-	
+
 	private Vector2 RandomSpawnPosition()
 	{
 		int edge = new Random().Next(4);

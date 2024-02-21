@@ -25,7 +25,6 @@ public partial class Player : CharacterBody2D
 		player = GetNode<MeshInstance2D>("player");
 		Health = MaxHealth;
 		Stuns = MaxStuns;
-		Modulate = Global.theme["primary"];
 		cooldownTimer = GetNode<Timer>("cooldown");
 		cooldownTimer.Timeout += () =>
 		{
@@ -33,6 +32,13 @@ public partial class Player : CharacterBody2D
 		};
 		soundUtils = GetNode<SoundUtils>("/root/SoundUtils");
 	}
+
+    public override void _Process(double delta)
+    {
+		// doing anything related to gui changes should be done here. This function
+		// is called every frame which can change....physics process is constant 
+		Modulate = Global.theme["secondary"];
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{

@@ -23,6 +23,7 @@ public partial class BasicProjectile : Node2D
 
 	public override void _Process(double delta)
 	{
+		Modulate = Global.theme["secondary"];
 		Position += Speed * direction * (float)delta;
 	}
 

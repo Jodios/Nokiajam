@@ -10,6 +10,7 @@ public partial class Enemy : CharacterBody2D
 	private bool isStunned = false;
 	private Node2D player;
 	private Timer stunTimer;
+	private SoundUtils soundUtils;
 
 	public override void _Ready()
 	{
@@ -25,6 +26,7 @@ public partial class Enemy : CharacterBody2D
 		stunTimer.OneShot = true;
 		stunTimer.WaitTime = stunDuration;
 		stunTimer.Connect("timeout", new Callable(this, nameof(OnStunTimerTimeout)));
+		soundUtils = GetNode<SoundUtils>("/root/SoundUtils");
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -48,6 +50,7 @@ public partial class Enemy : CharacterBody2D
 
 	public void Damage(float damage)
 	{
+		soundUtils.PlayEnemyHitSound();
 		health -= damage;
 		if (health <= 0)
 		{

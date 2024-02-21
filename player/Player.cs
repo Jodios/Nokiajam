@@ -7,7 +7,6 @@ public partial class Player : CharacterBody2D
 	[Export] public int MaxStuns { set; get; } = 3;
 	[Export] public float Speed = 900;
 	[Export] public ProjectileTypes.Type ProjectileType = ProjectileTypes.Type.Multiply;
-	private AudioStreamPlayer shootingSound;
 	private MeshInstance2D player;
 	public int Health { set; get; } = 0;
 	public int Stuns { set; get; } = 0;
@@ -16,6 +15,7 @@ public partial class Player : CharacterBody2D
 	private Vector2 previousDirection;
 	private Timer cooldownTimer;
 	private bool coolingDown = false;
+	private SoundUtils soundUtils;
 
 	public override void _Ready()
 	{
@@ -31,7 +31,7 @@ public partial class Player : CharacterBody2D
 		{
 			coolingDown = false;
 		};
-		shootingSound = GetNode<AudioStreamPlayer>("shootingSound");
+		soundUtils = GetNode<SoundUtils>("/root/SoundUtils");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -75,7 +75,7 @@ public partial class Player : CharacterBody2D
 		if (coolingDown) return;
 		if (Input.IsActionJustPressed("shoot"))
 		{
-			SoundUtils.PlaySound(shootingSound);
+			soundUtils.PlayShootingSound();
 			coolingDown = true;
 			cooldownTimer.Start();
 			switch (ProjectileType)

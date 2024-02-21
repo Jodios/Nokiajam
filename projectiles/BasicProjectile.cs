@@ -20,11 +20,11 @@ public partial class BasicProjectile : Node2D
 		global = GetNode<Global>("/root/Global");
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
-		Modulate = Global.theme["primary"];
 	}
 
 	public override void _Process(double delta)
 	{
+		Modulate = Global.theme["secondary"];
 		Position += Speed * direction * (float)delta;
 	}
 

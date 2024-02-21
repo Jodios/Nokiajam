@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 using Godot.Collections;
 
@@ -24,7 +25,8 @@ public partial class Global : Node
 			}
 		},
 	};
-	public static Dictionary<string, Color> theme = themes["original"]; 
+	public static int themeIdx = 0;
+	public static Dictionary<string, Color> theme = themes.ElementAt(themeIdx).Value;
 
 	public const string Enemy = "enemy";
 	public const string Player = "player";
@@ -36,5 +38,14 @@ public partial class Global : Node
 	{
 		Viewport root = GetTree().Root;
 		CurrentScene = root.GetChild(root.GetChildCount() - 1);
+	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsActionJustReleased("changeTheme"))
+		{
+			themeIdx = (themeIdx + 1) % 3;
+			Global.theme = Global.themes.ElementAt(themeIdx).Value;
+		}
 	}
 }

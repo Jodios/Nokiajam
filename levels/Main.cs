@@ -6,6 +6,7 @@ public partial class Main : Node2D
 	[Export] public float EnemySpawnInterval = 2;
 	[Export] public int MaxEnemySpawns = 10;
 	private Timer enemySpawnTimer;
+	private ColorRect background;
 	
 	public override void _Ready()
 	{
@@ -14,7 +15,15 @@ public partial class Main : Node2D
 		enemySpawnTimer.WaitTime = EnemySpawnInterval;
 		enemySpawnTimer.Connect("timeout", new Callable(this, nameof(OnEnemySpawnTimeout)));
 		enemySpawnTimer.Start();
+		background = GetNode<ColorRect>("background");
 	}
+
+    public override void _Process(double delta)
+    {
+		// doing anything related to gui changes should be done here. This function
+		// is called every frame which can change....physics process is constant 
+		Modulate = Global.theme["primary"];
+    }
 	
 	private void OnEnemySpawnTimeout()
 	{

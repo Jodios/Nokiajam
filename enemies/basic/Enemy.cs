@@ -15,7 +15,6 @@ public partial class Enemy : CharacterBody2D
 	public override void _Ready()
 	{
 		AddToGroup(Global.Enemy);
-		Modulate = Global.theme["primary"];
 		player = GetTree().Root.GetNode<Node2D>("/root/Main/Player");
 		EnemyTypes.EnemyTypeProperties properties = EnemyTypes.TypeProperties[EnemyType];
 		health = properties.Health;
@@ -28,8 +27,14 @@ public partial class Enemy : CharacterBody2D
 		stunTimer.Connect("timeout", new Callable(this, nameof(OnStunTimerTimeout)));
 		soundUtils = GetNode<SoundUtils>("/root/SoundUtils");
 	}
-	
-	public override void _PhysicsProcess(double delta)
+
+    public override void _Process(double delta)
+    {
+		// doing anything related to gui changes should be done here. This function
+		// is called every frame which can change....physics process is constant 
+		Modulate = Global.theme["secondary"];
+    }
+    public override void _PhysicsProcess(double delta)
 	{
 		HandleMovement();
 	}

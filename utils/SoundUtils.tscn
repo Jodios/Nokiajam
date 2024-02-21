@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://dispkhynxy6cp"]
+
+[ext_resource type="Script" path="res://utils/SoundUtils.cs" id="1_g2heq"]
+[ext_resource type="AudioStream" uid="uid://ctcy6wu3btas7" path="res://assets/sounds/nokia_soundpack_@trix/odd3.wav" id="2_tkymy"]
+[ext_resource type="AudioStream" uid="uid://bksch1raitdsq" path="res://assets/sounds/nokia_soundpack_@trix/good3.wav" id="3_hj0qe"]
+[ext_resource type="AudioStream" uid="uid://bd3vydepjx3ms" path="res://assets/sounds/nokia_soundpack_@trix/soundtest.wav" id="4_p1bs4"]
+[ext_resource type="AudioStream" uid="uid://bs4cpue3b6l6v" path="res://assets/sounds/nokia_soundpack_@trix/hit3.wav" id="5_nxhxa"]
+[ext_resource type="AudioStream" uid="uid://wwh8eitdpw7d" path="res://assets/sounds/nokia_soundpack_@trix/blip4.wav" id="6_35vci"]
+[ext_resource type="AudioStream" uid="uid://g0af6k8mo8di" path="res://assets/sounds/nokia_soundpack_@trix/blip5.wav" id="7_tk2tc"]
+
+[node name="SoundUtils" type="Node2D"]
+script = ExtResource("1_g2heq")
+
+[node name="HealthItem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_tkymy")
+
+[node name="FreezeItem" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hj0qe")
+
+[node name="Freeze" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p1bs4")
+
+[node name="Perish" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nxhxa")
+
+[node name="EnemyHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_35vci")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tk2tc")

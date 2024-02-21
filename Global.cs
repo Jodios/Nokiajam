@@ -25,6 +25,7 @@ public partial class Global : Node
 		},
 	};
 	public static Dictionary<string, Color> theme = themes["original"]; 
+	public static StatsTracker statsTracker = new StatsTracker();
 
 	public const string Enemy = "enemy";
 	public const string Player = "player";
@@ -36,5 +37,6 @@ public partial class Global : Node
 	{
 		Viewport root = GetTree().Root;
 		CurrentScene = root.GetChild(root.GetChildCount() - 1);
+		statsTracker.Initialize();
 	}
 }

@@ -7,6 +7,7 @@ public partial class Main : Node2D
 	[Export] public int MaxEnemySpawns = 10;
 	private Timer enemySpawnTimer;
 	private ColorRect background;
+	private Global global;
 
 	public override void _Ready()
 	{
@@ -15,7 +16,8 @@ public partial class Main : Node2D
 		enemySpawnTimer.WaitTime = EnemySpawnInterval;
 		enemySpawnTimer.Timeout += OnEnemySpawnTimeout;
 		enemySpawnTimer.Start();
-		Global.statsTracker.StartGame();
+		global = GetNode<Global>("/root/Global");
+		global.statsTracker.StartGame();
 		background = GetNode<ColorRect>("background");
 	}
 
@@ -23,7 +25,7 @@ public partial class Main : Node2D
 	{
 		// doing anything related to gui changes should be done here. This function
 		// is called every frame which can change....physics process is constant 
-		Modulate = Global.theme["primary"];
+		Modulate = global.theme["primary"];
 	}
 
 	private void OnEnemySpawnTimeout()

@@ -6,9 +6,11 @@ public partial class Freeze : Node2D
 	private Area2D pickupArea;
 	private SoundUtils soundUtils;
 	private MeshInstance2D meshInstance2D;
+	private Global global;
 
 	public override void _Ready()
 	{
+		global = GetNode<Global>("/root/Global");
 		pickupArea = GetNode<Area2D>("pickupArea");
 		pickupArea.BodyEntered += Pickup;
 		soundUtils = GetNode<SoundUtils>("/root/SoundUtils");
@@ -19,12 +21,12 @@ public partial class Freeze : Node2D
     {
 		// doing anything related to gui changes should be done here. This function
 		// is called every frame which can change....physics process is constant 
-		Modulate = Global.theme["secondary"];
+		Modulate = global.theme["secondary"];
     }
 
 	public void Pickup(Node2D body)
 	{
-		if (!body.IsInGroup(Global.Player)) return;
+		if (!body.IsInGroup(global.Player)) return;
 		soundUtils.PlayPickupFreezeItemSound();
 		Player player = (Player)body;
 		int possibleVal = player.Stuns + Strength;

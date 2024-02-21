@@ -25,7 +25,7 @@ public partial class MultiplyProjectile : Node2D
 		global = GetNode<Global>("/root/Global");
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
-		Modulate = Global.theme["primary"];
+		Modulate = global.theme["primary"];
 	}
 
 	public override void _Process(double delta)
@@ -46,7 +46,7 @@ public partial class MultiplyProjectile : Node2D
 
 	private void HitboxCollisionHandler(Node2D body)
 	{
-		if (!body.IsInGroup(Global.Enemy)) return;
+		if (!body.IsInGroup(global.Enemy)) return;
 
 		if (body is Enemy)
 		{

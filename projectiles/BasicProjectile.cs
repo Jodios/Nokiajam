@@ -12,18 +12,19 @@ public partial class BasicProjectile : Node2D
 	private Area2D hitbox;
 
 	private Player parent;
+	private Global global;
 
 	public override void _Ready()
 	{
 		hitbox = GetNode<Area2D>("hitbox");
 		hitbox.BodyEntered += HitboxCollisionHandler;
-		Modulate = Global.theme["primary"];
-		Global.statsTracker.AddShotFired();
+		global = GetNode<Global>("/root/Global");
+		global.statsTracker.AddShotFired();
 	}
 
 	public override void _Process(double delta)
 	{
-		Modulate = Global.theme["secondary"];
+		Modulate = global.theme["secondary"];
 		Position += Speed * direction * (float)delta;
 	}
 
@@ -40,15 +41,15 @@ public partial class BasicProjectile : Node2D
 
 	private void HitboxCollisionHandler(Node2D body)
 	{
-		if (body.IsInGroup(Global.Border))
+		if (body.IsInGroup(global.Border))
 		{
 			QueueFree();
 		}
-		if (!body.IsInGroup(Global.Enemy)) return;
+		if (!body.IsInGroup(global.Enemy)) return;
 
 		if (body is Enemy)
 		{
-			Global.statsTracker.AddShotLanded();
+			global.statsTracker.AddShotLanded();
 			Enemy enemy = (Enemy)body;
 			enemy.Damage(Damage);
 		}

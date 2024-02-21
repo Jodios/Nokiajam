@@ -21,7 +21,7 @@ public partial class Player : CharacterBody2D
 	{
 		previousDirection = Vector2.Right;
 		global = GetNode<Global>("/root/Global");
-		AddToGroup(Global.Player);
+		AddToGroup(global.Player);
 		player = GetNode<MeshInstance2D>("player");
 		Health = MaxHealth;
 		Stuns = MaxStuns;
@@ -37,7 +37,7 @@ public partial class Player : CharacterBody2D
     {
 		// doing anything related to gui changes should be done here. This function
 		// is called every frame which can change....physics process is constant 
-		Modulate = Global.theme["secondary"];
+		Modulate = global.theme["secondary"];
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -69,7 +69,7 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("freeze"))
 		{
 			soundUtils.PlayFreezeActionSound();
-			Array<Node> enemies = GetTree().GetNodesInGroup(Global.Enemy);
+			Array<Node> enemies = GetTree().GetNodesInGroup(global.Enemy);
 			foreach (var enemy in enemies)
 			{
 				enemy.Call("Stun");

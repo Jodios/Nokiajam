@@ -11,10 +11,12 @@ public partial class Enemy : CharacterBody2D
 	private Node2D player;
 	private Timer stunTimer;
 	private SoundUtils soundUtils;
+	private Global global;
 
 	public override void _Ready()
 	{
-		AddToGroup(Global.Enemy);
+		global = GetNode<Global>("/root/Global");
+		AddToGroup(global.Enemy);
 		player = GetTree().Root.GetNode<Node2D>("/root/Main/Player");
 		EnemyTypes.EnemyTypeProperties properties = EnemyTypes.TypeProperties[EnemyType];
 		health = properties.Health;
@@ -32,7 +34,7 @@ public partial class Enemy : CharacterBody2D
     {
 		// doing anything related to gui changes should be done here. This function
 		// is called every frame which can change....physics process is constant 
-		Modulate = Global.theme["secondary"];
+		Modulate = global.theme["secondary"];
     }
     public override void _PhysicsProcess(double delta)
 	{
@@ -66,7 +68,7 @@ public partial class Enemy : CharacterBody2D
 	private void Die()
 	{
 		speed = 0;
-		Global.statsTracker.AddEnemyDeath();
+		global.statsTracker.AddEnemyDeath();
 		QueueFree();
 	}
 	

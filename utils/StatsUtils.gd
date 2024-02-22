@@ -89,5 +89,3 @@ func load_stats_from_file() -> void:
 		_data = []
 		return
 	_data = json.get_data()
-	print("Loading stats from file")
-	print(_data)

@@ -3,10 +3,12 @@ extends Node2D
 @export var EnemySpawnInterval : float = 2
 @export var MaxEnemySpawns : int = 10
 @onready var background : ColorRect = $background
+var playing = false
 
 var enemySpawnTimer : Timer
 
 func _ready():
+	StatsUtils.startTime = Time.get_ticks_msec()
 	enemySpawnTimer = Timer.new()
 	add_child(enemySpawnTimer)
 	enemySpawnTimer.wait_time = EnemySpawnInterval
@@ -22,11 +24,7 @@ func _on_enemy_spawn_timeout() -> void:
 		spawn_enemy(EnemyTypes.Type.NORMAL)
 
 func get_enemy_count() -> int:
-	var enemyCount : int = 0
-	for child in get_tree().root.get_children():
-		if child is Enemy:
-			enemyCount += 1
-	return enemyCount
+	return get_tree().get_nodes_in_group(Global.EnemyGroup).size()
 
 func spawn_enemy(type: int) -> void:
 	var enemyScene = load("res://enemies/basic/Enemy.tscn")

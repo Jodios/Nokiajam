@@ -23,14 +23,16 @@ var EnemyGroup : String = "enemy"
 var PlayerGroup : String = "player"
 var Border : String = "border"
 
-var testtesttest : String = "jest"
 var CurrentScene : Node
+var started : bool = false
 
 func _ready():
 	var root : Viewport = get_tree().root
 	CurrentScene = root.get_child(root.get_child_count() - 1)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_released("changeTheme"):
+	if Input.is_action_just_pressed("changeTheme"):
 		themeIdx = (themeIdx + 1) % themes.size()
 		theme = themes.values()[themeIdx]
+	if Input.is_action_just_pressed("test"):
+		StatsUtils.stop_game(true)

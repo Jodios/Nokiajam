@@ -29,6 +29,7 @@ func _physics_process(_delta: float) -> void:
 	_handle_movement()
 
 func stun() -> void:
+	StatsUtils.add_enemy_stunned()
 	if not isStunned:
 		isStunned = true
 		stunTimer.wait_time = stunDuration

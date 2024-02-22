@@ -47,8 +47,9 @@ func die() -> void:
 
 func _handle_stun_action() -> void:
 	if Input.is_action_just_pressed("freeze"):
+		StatsUtils.add_stun_used()
 		SoundUtils.play_freeze_action_sound()
-		var enemies = get_tree().get_nodes_in_group(Global.Enemy)
+		var enemies = get_tree().get_nodes_in_group(Global.EnemyGroup)
 		for enemy in enemies:
 			enemy.stun()
 

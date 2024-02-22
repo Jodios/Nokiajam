@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://de5th28ua2gxc"]
 
 [ext_resource type="PackedScene" uid="uid://kji6pcjky1s3" path="res://player/Player.tscn" id="1_ce4hu"]
-[ext_resource type="Script" path="res://levels/Main.cs" id="1_mqs55"]
+[ext_resource type="Script" path="res://levels/Main.gd" id="1_sd0x3"]
 [ext_resource type="PackedScene" uid="uid://dw4ophk8uidr7" path="res://items/Freeze.tscn" id="4_3pfaj"]
 [ext_resource type="PackedScene" uid="uid://bnasa2jjmrkb7" path="res://items/Health.tscn" id="5_fqfga"]
 
@@ -12,7 +12,7 @@ size = Vector2(84, 10)
 size = Vector2(7.71875, 68)
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_mqs55")
+script = ExtResource("1_sd0x3")
 
 [node name="background" type="ColorRect" parent="."]
 offset_left = -7.0
@@ -25,15 +25,19 @@ position = Vector2(13, 8)
 
 [node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]
 position = Vector2(31, 12)
+Strength = null
 
 [node name="Health" parent="." instance=ExtResource("5_fqfga")]
 position = Vector2(42, 12)
+Strength = null
 
 [node name="Health2" parent="." instance=ExtResource("5_fqfga")]
 position = Vector2(42, 22)
+Strength = null
 
 [node name="Freeze2" parent="." instance=ExtResource("4_3pfaj")]
 position = Vector2(31, 22)
+Strength = null
 
 [node name="border" type="StaticBody2D" parent="." groups=["border"]]
 collision_layer = 8

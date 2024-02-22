@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnasa2jjmrkb7"]
 
-[ext_resource type="Script" path="res://items/Health.cs" id="1_6r0wk"]
+[ext_resource type="Script" path="res://items/Health.gd" id="1_tlscv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4rgg2"]
 size = Vector3(3, 1, 1)
@@ -9,7 +9,7 @@ size = Vector3(3, 1, 1)
 size = Vector2(3, 1)
 
 [node name="Health" type="Node2D"]
-script = ExtResource("1_6r0wk")
+script = ExtResource("1_tlscv")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 mesh = SubResource("BoxMesh_4rgg2")

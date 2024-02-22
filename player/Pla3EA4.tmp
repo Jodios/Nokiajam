@@ -12,6 +12,10 @@ size = Vector2(5, 9)
 collision_layer = 25
 collision_mask = 11
 script = ExtResource("1_qafjk")
+MaxHealth = null
+MaxStuns = null
+Speed = null
+ProjectileType = -2
 
 [node name="player" type="MeshInstance2D" parent="."]
 mesh = SubResource("BoxMesh_g86r0")

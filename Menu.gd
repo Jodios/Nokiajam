@@ -4,4 +4,4 @@ extends Node2D
 var background: ColorRect = $background
 
 func _process(_delta):
-    modulate = Global.theme.primary
+	modulate = Global.theme.primary

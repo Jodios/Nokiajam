@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "/Applications/Godot.app/Contents/MacOS/Godot",
+            "program": "C:\\Program Files\\Godot\\Godot_v4.2.1-stable_mono_win64.exe",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
@@ -20,7 +20,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "/Applications/Godot.app/Contents/MacOS/Godot",
+            "program": "C:\\Program Files\\Godot\\Godot_v4.2.1-stable_mono_win64.exe",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
@@ -35,7 +35,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "/Applications/Godot.app/Contents/MacOS/Godot",
+            "program": "C:\\Program Files\\Godot\\Godot_v4.2.1-stable_mono_win64.exe",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
@@ -51,4 +51,4 @@
             "request": "attach"
         }
     ]
-    
+}

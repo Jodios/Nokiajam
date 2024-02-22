@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dispkhynxy6cp"]
 
-[ext_resource type="Script" path="res://utils/SoundUtils.cs" id="1_g2heq"]
+[ext_resource type="Script" path="res://utils/SoundUtils.gd" id="1_vs1hu"]
 [ext_resource type="AudioStream" uid="uid://ctcy6wu3btas7" path="res://assets/sounds/nokia_soundpack_@trix/odd3.wav" id="2_tkymy"]
 [ext_resource type="AudioStream" uid="uid://bksch1raitdsq" path="res://assets/sounds/nokia_soundpack_@trix/good3.wav" id="3_hj0qe"]
 [ext_resource type="AudioStream" uid="uid://bd3vydepjx3ms" path="res://assets/sounds/nokia_soundpack_@trix/soundtest.wav" id="4_p1bs4"]
@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://g0af6k8mo8di" path="res://assets/sounds/nokia_soundpack_@trix/blip5.wav" id="7_tk2tc"]
 
 [node name="SoundUtils" type="Node2D"]
-script = ExtResource("1_g2heq")
+script = ExtResource("1_vs1hu")
 
 [node name="HealthItem" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tkymy")

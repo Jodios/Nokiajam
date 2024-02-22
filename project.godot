@@ -17,9 +17,11 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Global.cs"
-ProjectileTypes="*res://projectiles/ProjectileTypes.cs"
 SoundUtils="*res://utils/SoundUtils.tscn"
+EnemyTypes="*res://enemies/EnemyTypes.gd"
+ProjectileTypes="*res://projectiles/ProjectileTypes.gd"
+Global="*res://Global.gd"
+StatsUtils="*res://utils/StatsUtils.gd"
 
 [display]
 

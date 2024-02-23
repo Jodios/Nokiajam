@@ -23,7 +23,7 @@ func pickup(body: Node) -> void:
 	var player = body as Player
 	var possibleVal = player.PlayerHealth + Strength
 	if possibleVal <= player.MaxHealth:
-		player.Health = possibleVal
+		player.PlayerHealth = possibleVal
 	else:
 		player.PlayerHealth = player.MaxHealth
 	queue_free()

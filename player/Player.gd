@@ -16,10 +16,12 @@ var previousDirection : Vector2
 var coolingDown : bool = false
 var circleCoolingDown : bool = false
 var multipleCoolingDown : bool = false
+var stunCoolingDown : bool = false
 
 @onready var cooldownTimer : Timer = $cooldown
 @onready var multipleTimer : Timer = $multipleTimer
 @onready var circleTimer : Timer = $circleTimer
+@onready var stunTimer : Timer = $stunTimer
 
 func _ready():
 	previousDirection = Vector2.RIGHT
@@ -32,6 +34,9 @@ func _ready():
 	)
 	circleTimer.timeout.connect(func ():
 		circleCoolingDown = false
+	)
+	stunTimer.timeout.connect(func ():
+		stunCoolingDown = false
 	)
 
 func _process(_delta: float) -> void:
@@ -57,7 +62,8 @@ func die() -> void:
 	emit_signal("PlayerPerished")
 
 func _handle_stun_action() -> void:
-	if Input.is_action_just_pressed("freeze"):
+	if Input.is_action_just_pressed("freeze") && Stuns > 0 && !stunCoolingDown:
+		Stuns -= 1
 		StatsUtils.add_stun_used()
 		SoundUtils.play_freeze_action_sound()
 		var enemies = get_tree().get_nodes_in_group(Global.EnemyGroup)
@@ -100,15 +106,7 @@ func _multiply_projectile(amount: int, path: String) -> void:
 		get_tree().root.add_child(projectile)
 
 func _handle_movement(delta: float) -> void:
-	var direction = Vector2.ZERO
-	if Input.is_action_pressed("up"):
-		direction += Vector2.UP
-	if Input.is_action_pressed("down"):
-		direction += Vector2.DOWN
-	if Input.is_action_pressed("left"):
-		direction += Vector2.LEFT
-	if Input.is_action_pressed("right"):
-		direction += Vector2.RIGHT
+	var direction = Input.get_vector("left", "right", "up", "down")
 	if direction != Vector2.ZERO:
 		previousDirection = direction
 	velocity = direction * Speed * delta

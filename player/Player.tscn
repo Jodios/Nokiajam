@@ -26,3 +26,5 @@ wait_time = 0.1
 
 [node name="circleTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="stunTimer" type="Timer" parent="."]

@@ -12,7 +12,7 @@ func _ready():
 	enemySpawnTimer = Timer.new()
 	add_child(enemySpawnTimer)
 	enemySpawnTimer.wait_time = EnemySpawnInterval
-	enemySpawnTimer.timeout.connect(_on_enemy_spawn_timeout)
+	#enemySpawnTimer.timeout.connect(_on_enemy_spawn_timeout)
 	enemySpawnTimer.start()
 	StatsUtils.start_game()
 

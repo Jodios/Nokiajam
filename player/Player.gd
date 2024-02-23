@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var ProjectileType : ProjectileTypes.Type = ProjectileTypes.Type.Multiply
 
 @onready var player : MeshInstance2D = $player
+@onready var animationPlayer: AnimationPlayer = $playerAnimationPlayer
 var PlayerHealth : int = 0
 var Stuns : int = 0
 
@@ -15,6 +16,9 @@ signal PlayerPerished
 var previousDirection : Vector2
 @onready var cooldownTimer : Timer = $cooldown
 var coolingDown : bool = false
+var direction = Vector2.ZERO
+@onready var animationTree: AnimationTree = $AnimationTree
+var lastPressedDirection = "right"
 
 func _ready():
 	previousDirection = Vector2.RIGHT
@@ -22,15 +26,86 @@ func _ready():
 	PlayerHealth = MaxHealth
 	Stuns = MaxStuns
 	cooldownTimer.timeout.connect(_on_cooldown_timeout)
+	animationPlayer.play("southIdle")
+	animationTree["parameters/idle/blend_position"] = direction
+	animationTree["parameters/running/blend_position"] = direction
+	animationTree.active = false
 
 func _process(_delta: float) -> void:
 	modulate = Global.theme.secondary
+	var x: AnimationNodeStateMachinePlayback = animationTree["parameters/playback"]
+	if direction != Vector2.ZERO:
+		animationTree["parameters/idle/blend_position"] = direction
+		animationTree["parameters/running/blend_position"] = direction
+	if velocity != Vector2.ZERO:
+		animationTree["parameters/conditions/idle"] = false
+		animationTree["parameters/conditions/running"] = true
+	else:
+		animationTree["parameters/conditions/idle"] = true
+		animationTree["parameters/conditions/running"] = false
+		
+		
+		
+		
+	#if velocity != Vector2.ZERO:
+		#_animate_run()
+	#else:
+		#_animate_idle()
+		
 
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_handle_shooting_action()
 	_handle_stun_action()
 	move_and_slide()
+	
+func _animate_run():
+	var left = Input.is_action_pressed("left")
+	var right = Input.is_action_pressed("right")
+	var up = Input.is_action_pressed("up")
+	var down = Input.is_action_pressed("down")
+	if right && up:
+		lastPressedDirection="rightup"
+		animationPlayer.play("northEastRun")
+	elif right && down:
+		lastPressedDirection="rightdown"
+		animationPlayer.play("southEastRun")
+	elif left && up:
+		lastPressedDirection="leftup"
+		animationPlayer.play("northWestRun")
+	elif left && down:
+		lastPressedDirection="leftdown"
+		animationPlayer.play("southWestRun")
+	elif right:
+		lastPressedDirection="right"
+		animationPlayer.play("eastRun")
+	elif down:
+		lastPressedDirection="down"
+		animationPlayer.play("southRun")
+	elif left:
+		lastPressedDirection="left"
+		animationPlayer.play("westRun")
+	elif up:
+		lastPressedDirection="up"
+		animationPlayer.play("northRun")
+	
+func _animate_idle():
+	if lastPressedDirection == "rightup":
+		animationPlayer.play("northEastIdle")
+	elif lastPressedDirection == "rightdown":
+		animationPlayer.play("southEastIdle")
+	elif lastPressedDirection == "leftup":
+		animationPlayer.play("northWestIdle")
+	elif lastPressedDirection == "leftdown":
+		animationPlayer.play("southWestIdle")
+	elif lastPressedDirection == "right":
+		animationPlayer.play("eastIdle")
+	elif lastPressedDirection == "down":
+		animationPlayer.play("southIdle")
+	elif lastPressedDirection == "left":
+		animationPlayer.play("westIdle")
+	elif lastPressedDirection == "up":
+		animationPlayer.play("northIdle")
 
 func _on_cooldown_timeout() -> void:
 	coolingDown = false
@@ -86,15 +161,5 @@ func _multiply_projectile(path: String) -> void:
 		get_tree().root.add_child(projectile)
 
 func _handle_movement(delta: float) -> void:
-	var direction = Vector2.ZERO
-	if Input.is_action_pressed("up"):
-		direction += Vector2.UP
-	if Input.is_action_pressed("down"):
-		direction += Vector2.DOWN
-	if Input.is_action_pressed("left"):
-		direction += Vector2.LEFT
-	if Input.is_action_pressed("right"):
-		direction += Vector2.RIGHT
-	if direction != Vector2.ZERO:
-		previousDirection = direction
+	direction = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * Speed * delta

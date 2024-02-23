@@ -21,6 +21,7 @@ offset_right = 92.0
 offset_bottom = 58.0
 
 [node name="Player" parent="." instance=ExtResource("1_ce4hu")]
+z_index = 5
 position = Vector2(13, 8)
 
 [node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]

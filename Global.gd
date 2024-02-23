@@ -16,7 +16,7 @@ var themes = {
 	}
 }
 
-var themeIdx : int = 0
+var themeIdx : int = 2
 var theme : Dictionary = themes.values()[themeIdx]
 
 var EnemyGroup : String = "enemy"

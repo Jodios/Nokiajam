@@ -25,19 +25,15 @@ position = Vector2(13, 8)
 
 [node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]
 position = Vector2(31, 12)
-Strength = null
 
 [node name="Health" parent="." instance=ExtResource("5_fqfga")]
 position = Vector2(42, 12)
-Strength = null
 
 [node name="Health2" parent="." instance=ExtResource("5_fqfga")]
 position = Vector2(42, 22)
-Strength = null
 
 [node name="Freeze2" parent="." instance=ExtResource("4_3pfaj")]
 position = Vector2(31, 22)
-Strength = null
 
 [node name="border" type="StaticBody2D" parent="." groups=["border"]]
 collision_layer = 8

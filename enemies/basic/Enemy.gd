@@ -6,14 +6,27 @@ var speed : float
 var health : float
 var stunDuration : float
 var isStunned : bool = false
-var player : Node2D
+var player : Player
 var stunTimer : Timer
+var cooldown: bool = false
+var damageAmount
+
+@export var hitBoxDimensions : Vector2
+@onready var hitbox : Area2D = $hitbox
+@onready var hitboxBox : CollisionShape2D = $hitbox/CollisionShape2D
+@onready var cooldownTimer: Timer = $cooldown
 
 func _ready():
+	cooldownTimer.timeout.connect(func():
+		cooldown = false
+	)
+	hitboxBox.shape.size = hitBoxDimensions
+	hitbox.body_entered.connect(deal_damage)
 	add_to_group(Global.EnemyGroup)
 	player = get_tree().root.get_node("Main/Player")
 	var properties = EnemyTypes.EnemyTypeProperties[EnemyType]
 	health = properties.health
+	damageAmount = properties.damage
 	speed = properties.speed
 	stunDuration = properties.stun_duration
 	stunTimer = Timer.new()
@@ -27,6 +40,13 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	_handle_movement()
+
+func deal_damage(body: Node2D):
+	if !body.is_in_group(Global.PlayerGroup) && !cooldown:
+		return
+	cooldown = true
+	cooldownTimer.start()
+	(body as Player).damage(damageAmount)
 
 func stun() -> void:
 	StatsUtils.add_enemy_stunned()
@@ -49,7 +69,7 @@ func die() -> void:
 	queue_free()
 
 func _handle_movement() -> void:
-	if isStunned:
+	if isStunned || player == null:
 		return
 	var playerPosition : Vector2 = player.position
 	var targetPosition : Vector2 = (playerPosition - position).normalized()

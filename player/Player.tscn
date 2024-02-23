@@ -20,4 +20,9 @@ mesh = SubResource("BoxMesh_g86r0")
 shape = SubResource("RectangleShape2D_yp1qp")
 
 [node name="cooldown" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
+
+[node name="multipleTimer" type="Timer" parent="."]
+
+[node name="circleTimer" type="Timer" parent="."]
+wait_time = 2.0

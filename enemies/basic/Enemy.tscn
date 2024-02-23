@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx50wppq8ihmu"]
+[gd_scene load_steps=5 format=3 uid="uid://cx50wppq8ihmu"]
 
 [ext_resource type="Script" path="res://enemies/basic/Enemy.gd" id="1_mh3d4"]
 
@@ -8,13 +8,25 @@ size = Vector2(1, 3)
 [sub_resource type="BoxMesh" id="BoxMesh_gxfw6"]
 size = Vector3(1, 3, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c35ix"]
+size = Vector2(1, 3)
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_mh3d4")
+hitBoxDimensions = Vector2(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_gaw5r")
 
 [node name="enemy" type="MeshInstance2D" parent="."]
 mesh = SubResource("BoxMesh_gxfw6")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_c35ix")
+
+[node name="cooldown" type="Timer" parent="."]
+wait_time = 0.5

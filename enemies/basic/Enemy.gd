@@ -6,8 +6,17 @@ var speed : float
 var health : float
 var stunDuration : float
 var isStunned : bool = false
-var player : Node2D
+var player : Player
 var stunTimer : Timer
+var cooldown: bool = false
+var damageAmount
+var bugCooldown = false
+var direction: Vector2 = Vector2.ZERO
+@onready var cooldownTimer: Timer = $cooldown
+@onready var bugCooldownTimer: Timer = $bugCooldown
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var animationTree: AnimationTree = $AnimationTree
+var player_contact = false
 
 func _ready():
 	add_to_group(Global.EnemyGroup)
@@ -21,12 +30,31 @@ func _ready():
 	stunTimer.one_shot = true
 	stunTimer.wait_time = stunDuration
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
-
-func _process(_delta: float) -> void:
 	modulate = Global.theme.secondary
+	
+func _on_Player_body_entered():
+	player_contact = true
+
+func _on_Player_body_exited():
+	player_contact = false
+		
+func _process(_delta):
+	animationTree["parameters/run/blend_position"] = direction
+	if player_contact:
+		player.damage()
 
 func _physics_process(_delta: float) -> void:
+	if StatsUtils.currentStats.health <= 0:
+		return
 	_handle_movement()
+	move_and_slide()
+
+func deal_damage(body: Node2D):
+	if !body.is_in_group(Global.PlayerGroup) && !cooldown:
+		return
+	cooldown = true
+	cooldownTimer.start()
+	(body as Player).damage(damageAmount)
 
 func stun() -> void:
 	StatsUtils.add_enemy_stunned()
@@ -49,14 +77,14 @@ func die() -> void:
 	queue_free()
 
 func _handle_movement() -> void:
-	if isStunned:
+	if isStunned || player == null:
+		velocity = Vector2.ZERO
 		return
 	var playerPosition : Vector2 = player.position
-	var targetPosition : Vector2 = (playerPosition - position).normalized()
+	direction = (playerPosition - position).normalized()
 	if position.distance_to(playerPosition) > 2:
-		velocity = targetPosition * speed
-		move_and_slide()
-		look_at(playerPosition)
+		velocity = direction * speed
 
 func _on_stun_timer_timeout() -> void:
 	isStunned = false
+

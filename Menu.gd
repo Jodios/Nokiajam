@@ -3,13 +3,11 @@ extends Node2D
 @onready
 var background: ColorRect = $background
 @onready
-var textEdit: TextEdit = $TextEdit
+var label: Label = $Label
 
 func _ready():
 	SoundUtils.play_music()
-	textEdit.add_theme_color_override("font_color", Global.theme.secondary)
-	textEdit.add_theme_color_override("background_color", Global.theme.primary)
-
+	label.add_theme_color_override("font_color", Global.theme.secondary)
 
 func _process(_delta):
 	modulate = Global.theme.primary

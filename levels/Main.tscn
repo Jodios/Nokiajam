@@ -1,12 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://de5th28ua2gxc"]
+[gd_scene load_steps=6 format=3 uid="uid://de5th28ua2gxc"]
 
 [ext_resource type="PackedScene" uid="uid://kji6pcjky1s3" path="res://player/Player.tscn" id="1_ce4hu"]
 [ext_resource type="Script" path="res://levels/Main.gd" id="1_sd0x3"]
-[ext_resource type="PackedScene" uid="uid://dw4ophk8uidr7" path="res://items/Freeze.tscn" id="4_3pfaj"]
-[ext_resource type="PackedScene" uid="uid://bnasa2jjmrkb7" path="res://items/Health.tscn" id="5_fqfga"]
+[ext_resource type="Script" path="res://Hud.gd" id="3_f4x1f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5s2dg"]
-size = Vector2(84, 10)
+size = Vector2(84, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwreo"]
 size = Vector2(7.71875, 68)
@@ -21,30 +20,14 @@ offset_right = 92.0
 offset_bottom = 58.0
 
 [node name="Player" parent="." instance=ExtResource("1_ce4hu")]
-position = Vector2(13, 8)
-
-[node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]
-position = Vector2(31, 12)
-Strength = null
-
-[node name="Health" parent="." instance=ExtResource("5_fqfga")]
-position = Vector2(42, 12)
-Strength = null
-
-[node name="Health2" parent="." instance=ExtResource("5_fqfga")]
-position = Vector2(42, 22)
-Strength = null
-
-[node name="Freeze2" parent="." instance=ExtResource("4_3pfaj")]
-position = Vector2(31, 22)
-Strength = null
+position = Vector2(42, 20)
 
 [node name="border" type="StaticBody2D" parent="." groups=["border"]]
 collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="border" groups=["border"]]
-position = Vector2(42, -5)
+position = Vector2(42, 4)
 shape = SubResource("RectangleShape2D_5s2dg")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="border" groups=["border"]]
@@ -58,3 +41,8 @@ shape = SubResource("RectangleShape2D_xwreo")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="border" groups=["border"]]
 position = Vector2(87.8594, 24)
 shape = SubResource("RectangleShape2D_xwreo")
+
+[node name="HUD" type="Node2D" parent="."]
+z_index = 10
+z_as_relative = false
+script = ExtResource("3_f4x1f")

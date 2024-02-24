@@ -16,7 +16,18 @@ var themes = {
 	}
 }
 
-var themeIdx : int = 0
+signal StatsChanged
+var playerHealth = 0
+var playerStuns = 0
+func setStats(h, s):
+	if h != playerHealth || s != playerStuns:
+		playerHealth = h
+		playerStuns = s
+		emit_signal("StatsChanged")
+	playerHealth = h
+	playerStuns = s
+
+var themeIdx : int = 2
 var theme : Dictionary = themes.values()[themeIdx]
 
 var EnemyGroup : String = "enemy"
@@ -31,8 +42,8 @@ func _ready():
 	CurrentScene = root.get_child(root.get_child_count() - 1)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("changeTheme"):
-		themeIdx = (themeIdx + 1) % themes.size()
-		theme = themes.values()[themeIdx]
+	#if Input.is_action_just_pressed("changeTheme"):
+		#themeIdx = (themeIdx + 1) % themes.size()
+		#theme = themes.values()[themeIdx]
 	if Input.is_action_just_pressed("test"):
 		StatsUtils.stop_game(true)

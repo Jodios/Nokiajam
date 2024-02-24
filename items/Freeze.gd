@@ -9,6 +9,7 @@ extends Node2D
 @onready var meshInstance2D : MeshInstance2D = $MeshInstance2D
 
 func _ready():
+	add_to_group("item")
 	pickupArea.body_entered.connect(pickup)
 
 func _process(_delta: float) -> void:

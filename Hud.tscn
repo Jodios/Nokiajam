@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://75lvlf4eb52l"]
+
+[ext_resource type="Script" path="res://Hud.gd" id="1_qages"]
+[ext_resource type="PackedScene" uid="uid://dw4ophk8uidr7" path="res://items/Freeze.tscn" id="2_j1sho"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_helnn"]
+size = Vector2(33, 48)
+
+[node name="Hud" type="Node2D"]
+script = ExtResource("1_qages")
+
+[node name="Hud" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hud"]
+position = Vector2(17, 24)
+shape = SubResource("RectangleShape2D_helnn")
+
+[node name="Freeze" parent="." instance=ExtResource("2_j1sho")]
+position = Vector2(16, 34)

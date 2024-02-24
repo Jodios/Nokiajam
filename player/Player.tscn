@@ -320,6 +320,8 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 25
 collision_mask = 11
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_qafjk")
 
 [node name="playerSprite2D" type="Sprite2D" parent="."]
@@ -335,6 +337,14 @@ mesh = SubResource("BoxMesh_g86r0")
 shape = SubResource("RectangleShape2D_yp1qp")
 
 [node name="cooldown" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="multipleTimer" type="Timer" parent="."]
+
+[node name="circleTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="stunTimer" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="playerAnimationPlayer" type="AnimationPlayer" parent="."]

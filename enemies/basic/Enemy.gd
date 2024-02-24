@@ -11,8 +11,11 @@ var stunTimer : Timer
 var cooldown: bool = false
 var damageAmount
 var bugCooldown = false
+var direction: Vector2 = Vector2.ZERO
 @onready var cooldownTimer: Timer = $cooldown
 @onready var bugCooldownTimer: Timer = $bugCooldown
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
+@onready var animationTree: AnimationTree = $AnimationTree
 
 func _ready():
 	cooldownTimer.timeout.connect(func():
@@ -35,6 +38,7 @@ func _ready():
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
 
 func _process(_delta: float) -> void:
+	animationTree["parameters/run/blend_position"] = direction
 	modulate = Global.theme.secondary
 
 func _physics_process(_delta: float) -> void:
@@ -52,7 +56,6 @@ func _physics_process(_delta: float) -> void:
 func deal_damage(body: Node2D):
 	if !body.is_in_group(Global.PlayerGroup) && !cooldown:
 		return
-	print(body)
 	cooldown = true
 	cooldownTimer.start()
 	(body as Player).damage(damageAmount)
@@ -82,10 +85,10 @@ func _handle_movement() -> void:
 		velocity = Vector2.ZERO
 		return
 	var playerPosition : Vector2 = player.position
-	var targetPosition : Vector2 = (playerPosition - position).normalized()
+	direction = (playerPosition - position).normalized()
 	if position.distance_to(playerPosition) > 2:
-		velocity = targetPosition * speed
-		look_at(playerPosition)
+		velocity = direction * speed
 
 func _on_stun_timer_timeout() -> void:
 	isStunned = false
+

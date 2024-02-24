@@ -1,15 +1,230 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx50wppq8ihmu"]
+[gd_scene load_steps=26 format=3 uid="uid://cx50wppq8ihmu"]
 
 [ext_resource type="Script" path="res://enemies/basic/Enemy.gd" id="1_mh3d4"]
+[ext_resource type="Texture2D" uid="uid://c476trrkdhq0l" path="res://assets/enemySpriteV1.png" id="2_80xfc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gaw5r"]
-size = Vector2(1, 3)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gxfw6"]
-size = Vector3(1, 3, 0)
+size = Vector2(5, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dttqa"]
 size = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_6nmdy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_l32uc"]
+resource_name = "up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29]
+}
+
+[sub_resource type="Animation" id="Animation_xojfl"]
+resource_name = "down"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_1otny"]
+resource_name = "right"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_humqp"]
+resource_name = "left"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [36, 37, 38]
+}
+
+[sub_resource type="Animation" id="Animation_fpt1o"]
+resource_name = "downright"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_4hp5u"]
+resource_name = "upright"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_6br52"]
+resource_name = "upleft"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [30, 31, 32]
+}
+
+[sub_resource type="Animation" id="Animation_cndop"]
+resource_name = "downleft"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [42, 43, 44]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_og87q"]
+_data = {
+"RESET": SubResource("Animation_6nmdy"),
+"down": SubResource("Animation_xojfl"),
+"downleft": SubResource("Animation_cndop"),
+"downright": SubResource("Animation_fpt1o"),
+"left": SubResource("Animation_humqp"),
+"right": SubResource("Animation_1otny"),
+"up": SubResource("Animation_l32uc"),
+"upleft": SubResource("Animation_6br52"),
+"upright": SubResource("Animation_4hp5u")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukbui"]
+animation = &"downleft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k7nco"]
+animation = &"down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4j166"]
+animation = &"downright"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aiw0t"]
+animation = &"upright"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6np7a"]
+animation = &"up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jl14g"]
+animation = &"upleft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xua6g"]
+animation = &"left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sbruk"]
+animation = &"right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_j0u1s"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ukbui")
+blend_point_0/pos = Vector2(-1, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_k7nco")
+blend_point_1/pos = Vector2(0, 1.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_4j166")
+blend_point_2/pos = Vector2(1, 1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_aiw0t")
+blend_point_3/pos = Vector2(1, -1.1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_6np7a")
+blend_point_4/pos = Vector2(0, -1.1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_jl14g")
+blend_point_5/pos = Vector2(-1, -1.1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_xua6g")
+blend_point_6/pos = Vector2(-1, 0)
+blend_point_7/node = SubResource("AnimationNodeAnimation_sbruk")
+blend_point_7/pos = Vector2(1, 0)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f0rq6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gb0rp"]
+states/run/node = SubResource("AnimationNodeBlendSpace2D_j0u1s")
+states/run/position = Vector2(381.333, 98)
+transitions = ["Start", "run", SubResource("AnimationNodeStateMachineTransition_f0rq6")]
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 3
@@ -22,10 +237,6 @@ script = ExtResource("1_mh3d4")
 z_index = 1
 shape = SubResource("RectangleShape2D_gaw5r")
 
-[node name="enemy" type="MeshInstance2D" parent="."]
-scale = Vector2(1, 0.833333)
-mesh = SubResource("BoxMesh_gxfw6")
-
 [node name="hitbox" type="Area2D" parent="."]
 position = Vector2(0.48, 0)
 
@@ -36,3 +247,22 @@ shape = SubResource("RectangleShape2D_dttqa")
 wait_time = 0.5
 
 [node name="bugCooldown" type="Timer" parent="."]
+
+[node name="EnemySpriteV1" type="Sprite2D" parent="."]
+position = Vector2(0.065, 0)
+texture = ExtResource("2_80xfc")
+hframes = 6
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_og87q")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_og87q")
+}
+tree_root = SubResource("AnimationNodeStateMachine_gb0rp")
+anim_player = NodePath("../AnimationPlayer")
+parameters/run/blend_position = Vector2(-0.62212, -0.0421829)

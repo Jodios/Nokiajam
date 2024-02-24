@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://kji6pcjky1s3"]
+[gd_scene load_steps=23 format=3 uid="uid://kji6pcjky1s3"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_qafjk"]
 [ext_resource type="Texture2D" uid="uid://duxlx1rc5qw0e" path="res://assets/playerSpriteV4.png" id="2_2dcs0"]
@@ -314,6 +314,9 @@ _data = {
 "westRun": SubResource("Animation_04xgt")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kd82"]
+size = Vector2(6, 10)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 25
 collision_mask = 11
@@ -326,7 +329,7 @@ texture = ExtResource("2_2dcs0")
 hframes = 6
 vframes = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yp1qp")
 
 [node name="cooldown" type="Timer" parent="."]
@@ -345,3 +348,13 @@ libraries = {
 "": SubResource("AnimationLibrary_tqcjm")
 }
 autoplay = "eastRun"
+
+[node name="damageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="PlayerHitbox" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_3kd82")

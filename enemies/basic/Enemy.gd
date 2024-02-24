@@ -16,19 +16,13 @@ var direction: Vector2 = Vector2.ZERO
 @onready var bugCooldownTimer: Timer = $bugCooldown
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var animationTree: AnimationTree = $AnimationTree
+var player_contact = false
 
 func _ready():
-	cooldownTimer.timeout.connect(func():
-		cooldown = false
-	)
-	bugCooldownTimer.timeout.connect(func():
-		bugCooldown = false
-	)
 	add_to_group(Global.EnemyGroup)
 	player = get_tree().root.get_node("Main/Player")
 	var properties = EnemyTypes.EnemyTypeProperties[EnemyType]
 	health = properties.health
-	damageAmount = properties.damage
 	speed = properties.speed
 	stunDuration = properties.stun_duration
 	stunTimer = Timer.new()
@@ -36,20 +30,22 @@ func _ready():
 	stunTimer.one_shot = true
 	stunTimer.wait_time = stunDuration
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
-
-func _process(_delta: float) -> void:
 	animationTree["parameters/run/blend_position"] = direction
 	modulate = Global.theme.secondary
+	
+func _on_Player_body_entered():
+	player_contact = true
+
+func _on_Player_body_exited():
+	player_contact = false
+		
+func _process(_delta):
+	if player_contact:
+		player.damage()
 
 func _physics_process(_delta: float) -> void:
-	for i in range(get_slide_collision_count()-1):
-		var c: KinematicCollision2D = get_slide_collision(i)
-		var collider = c.get_collider()
-		if collider is Player && !bugCooldown:
-			bugCooldown = true
-			bugCooldownTimer.start()
-			deal_damage(c.get_collider())
-			break
+	if StatsUtils.currentStats.health <= 0:
+		return
 	_handle_movement()
 	move_and_slide()
 

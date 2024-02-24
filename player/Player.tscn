@@ -9,23 +9,6 @@ size = Vector3(5, 9, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yp1qp"]
 size = Vector2(5, 9)
 
-[sub_resource type="Animation" id="Animation_lg2at"]
-resource_name = "southRun"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
 [sub_resource type="Animation" id="Animation_srpu2"]
 length = 0.001
 tracks/0/type = "value"
@@ -39,159 +22,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_ogm5i"]
-resource_name = "southEastRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [6, 7, 8]
-}
-
-[sub_resource type="Animation" id="Animation_d6k71"]
-resource_name = "eastRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [12, 13, 14]
-}
-
-[sub_resource type="Animation" id="Animation_n7f6e"]
-resource_name = "northEastRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [18, 19, 20]
-}
-
-[sub_resource type="Animation" id="Animation_b07kg"]
-resource_name = "northRun"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [24, 25, 26, 27, 28, 29]
-}
-
-[sub_resource type="Animation" id="Animation_gokaq"]
-resource_name = "northWestRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [30, 31, 32]
-}
-
-[sub_resource type="Animation" id="Animation_04xgt"]
-resource_name = "westRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [36, 37, 38]
-}
-
-[sub_resource type="Animation" id="Animation_qqfef"]
-resource_name = "southWestRun"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [42, 43, 44]
-}
-
-[sub_resource type="Animation" id="Animation_obwtc"]
-resource_name = "southIdle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [48, 49, 50, 51, 52, 53]
-}
-
-[sub_resource type="Animation" id="Animation_hxpot"]
-resource_name = "southEastIdle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playerSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [54, 55, 56, 57, 58, 59]
 }
 
 [sub_resource type="Animation" id="Animation_2rhbb"]
@@ -211,6 +41,23 @@ tracks/0/keys = {
 "values": [60, 61, 62, 63, 64, 65]
 }
 
+[sub_resource type="Animation" id="Animation_d6k71"]
+resource_name = "eastRun"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [12, 13, 14]
+}
+
 [sub_resource type="Animation" id="Animation_70uug"]
 resource_name = "northEastIdle"
 length = 0.6
@@ -226,6 +73,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [66, 67, 68, 69, 70, 71]
+}
+
+[sub_resource type="Animation" id="Animation_n7f6e"]
+resource_name = "northEastRun"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [18, 19, 20]
 }
 
 [sub_resource type="Animation" id="Animation_iyf0w"]
@@ -245,6 +109,23 @@ tracks/0/keys = {
 "values": [72, 73, 74, 75, 76, 77]
 }
 
+[sub_resource type="Animation" id="Animation_b07kg"]
+resource_name = "northRun"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29]
+}
+
 [sub_resource type="Animation" id="Animation_m8odg"]
 resource_name = "northWestIdle"
 length = 0.6
@@ -260,6 +141,125 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [78, 79, 80, 81, 82, 83]
+}
+
+[sub_resource type="Animation" id="Animation_gokaq"]
+resource_name = "northWestRun"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [30, 31, 32]
+}
+
+[sub_resource type="Animation" id="Animation_hxpot"]
+resource_name = "southEastIdle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [54, 55, 56, 57, 58, 59]
+}
+
+[sub_resource type="Animation" id="Animation_ogm5i"]
+resource_name = "southEastRun"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_obwtc"]
+resource_name = "southIdle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51, 52, 53]
+}
+
+[sub_resource type="Animation" id="Animation_lg2at"]
+resource_name = "southRun"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_fjnum"]
+resource_name = "southWestIdle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [90, 91, 92, 93, 94, 95]
+}
+
+[sub_resource type="Animation" id="Animation_qqfef"]
+resource_name = "southWestRun"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("playerSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [42, 43, 44]
 }
 
 [sub_resource type="Animation" id="Animation_7isi7"]
@@ -279,9 +279,9 @@ tracks/0/keys = {
 "values": [84, 85, 86, 87, 88, 89]
 }
 
-[sub_resource type="Animation" id="Animation_fjnum"]
-resource_name = "southWestIdle"
-length = 0.6
+[sub_resource type="Animation" id="Animation_04xgt"]
+resource_name = "westRun"
+length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -290,10 +290,10 @@ tracks/0/path = NodePath("playerSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [90, 91, 92, 93, 94, 95]
+"values": [36, 37, 38]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tqcjm"]

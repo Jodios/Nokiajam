@@ -13,7 +13,7 @@ func _ready():
 func get_latest_stat():
 	if _data.size() == 0:
 		return null
-	var lastIndex = _data.size() - 2
+	var lastIndex = _data.size() - 1
 	return _data[lastIndex]
 
 func start_game() -> void:
@@ -28,12 +28,24 @@ func start_game() -> void:
 		"dateSaved": "",
 		"stunsUsed": 0,
 		"enemiesStunned": 0,
+		"health": 3,
+		"stuns": 3
 	}
 
 func stop_game(saveStats: bool = true) -> void:
 	currentStats.dateSaved = Time.get_datetime_string_from_system()
 	if saveStats:
 		save_stats()
+
+func remove_stun() -> void:
+	if currentStats.stuns == 0:
+		return
+	currentStats.stuns -= 1
+	
+func remove_health() -> void:
+	if currentStats.health == 0:
+		return
+	currentStats.health -= 1
 
 func add_enemy_death() -> void:
 	currentStats.enemiesKilled += 1

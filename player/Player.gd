@@ -1,13 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
-@export var MaxHealth : int = 3
-@export var MaxStuns : int = 3
 @export var Speed : float = 900
 @export var ProjectileType : ProjectileTypes.Type = ProjectileTypes.Type.Multiply
-
-var PlayerHealth : int = 0
-var Stuns : int = 0
 
 signal PlayerPerished
 
@@ -16,22 +11,22 @@ var coolingDown : bool = false
 var circleCoolingDown : bool = false
 var multipleCoolingDown : bool = false
 var stunCoolingDown : bool = false
+var damageCoolingDown : bool = false
 
 @onready var cooldownTimer : Timer = $cooldown
 @onready var multipleTimer : Timer = $multipleTimer
 @onready var circleTimer : Timer = $circleTimer
+@onready var damageTimer : Timer = $damageTimer
 @onready var stunTimer : Timer = $stunTimer
 @onready var animationPlayer: AnimationPlayer = $playerAnimationPlayer
 var lastPressedDirection = "right"
 
 func _ready():
-	PlayerHealth = MaxHealth
-	Stuns = MaxStuns
-	Global.playerHealth = PlayerHealth
-	Global.playerStuns = Stuns
 	previousDirection = Vector2.RIGHT
 	add_to_group(Global.PlayerGroup)
 	cooldownTimer.timeout.connect(_on_cooldown_timeout)
+	$hitbox.connect("body_entered", Callable(self, "_on_body_entered"))
+	$hitbox.connect("body_exited", Callable(self, "_on_body_exited"))
 	multipleTimer.timeout.connect(func ():
 		multipleCoolingDown = false
 	)
@@ -41,36 +36,54 @@ func _ready():
 	stunTimer.timeout.connect(func ():
 		stunCoolingDown = false
 	)
+	damageTimer.timeout.connect(func ():
+		damageCoolingDown = false
+	)
+
+func _on_body_entered(body):
+	if body.has_method("_on_Player_body_entered"):
+		body._on_Player_body_entered()
+	
+func _on_body_exited(body):
+	if body.has_method("_on_Player_body_exited"):
+		body._on_Player_body_exited()
 
 func _process(_delta: float) -> void:
+	if StatsUtils.currentStats.health <= 0:
+		return
 	if velocity != Vector2.ZERO:
 		_animate_run()
 	else:
 		_animate_idle()
-	Global.setStats(PlayerHealth, Stuns)
 	_handle_shooting_action()
 	_handle_stun_action()
 
 func _physics_process(delta: float) -> void:
+	if StatsUtils.currentStats.health <= 0:
+		return
 	_handle_movement(delta)
 	move_and_slide()
 
 func _on_cooldown_timeout() -> void:
 	coolingDown = false
 
-func damage(damageTaken: int) -> void:
-	PlayerHealth -= damageTaken
-	if PlayerHealth <= 0:
-		die()
-
-func die() -> void:
-	Speed = 0
-	queue_free()
-	emit_signal("PlayerPerished")
+func damage() -> void:
+	if damageCoolingDown:
+		return
+	# Issue where player loses 1 life when the game just starts
+	# this checks if game just started 1 sec ago
+	if abs(StatsUtils.startTime - Time.get_ticks_msec()) <= 1000:
+		return
+	StatsUtils.remove_health()
+	if StatsUtils.currentStats.health > 0:
+		damageCoolingDown = true
+		damageTimer.start()
+	else:
+		animationPlayer.play("northIdle")
 
 func _handle_stun_action() -> void:
-	if Input.is_action_just_pressed("freeze") && Stuns > 0 && !stunCoolingDown:
-		Stuns -= 1
+	if Input.is_action_just_pressed("freeze") && StatsUtils.currentStats.stuns > 0 && !stunCoolingDown:
+		StatsUtils.remove_stun()
 		StatsUtils.add_stun_used()
 		SoundUtils.play_freeze_action_sound()
 		var enemies = get_tree().get_nodes_in_group(Global.EnemyGroup)

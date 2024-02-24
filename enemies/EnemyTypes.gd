@@ -7,8 +7,7 @@ var EnemyTypeProperties = {
 	Type.NORMAL: {
 		"health": 50, 
 		"speed": 5,
-		"stun_duration": 1,
-		"damage": 1
+		"stun_duration": 1
 	}
 }
 

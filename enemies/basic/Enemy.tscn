@@ -31,8 +31,3 @@ position = Vector2(0.48, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("RectangleShape2D_dttqa")
-
-[node name="cooldown" type="Timer" parent="."]
-wait_time = 0.5
-
-[node name="bugCooldown" type="Timer" parent="."]

@@ -2,59 +2,61 @@ extends Node2D
 
 @export var EnemySpawnInterval : float = 2
 @export var MaxEnemySpawns : int = 10
-@export var MaxItemSpawns : int = 5
 @onready var background : ColorRect = $background
-@onready var hud = $Hud
-var playing = false
 
 var enemySpawnTimer : Timer
-var itemSpawnTimer : Timer
+var gameOver = false
 
 func _ready():
-	StatsUtils.startTime = Time.get_ticks_msec()
+	background.color = Global.theme.primary
 	enemySpawnTimer = Timer.new()
 	add_child(enemySpawnTimer)
-	itemSpawnTimer = Timer.new()
-	add_child(itemSpawnTimer)
 	enemySpawnTimer.wait_time = EnemySpawnInterval
-	itemSpawnTimer.wait_time = randi_range(5,8)
 	enemySpawnTimer.timeout.connect(_on_enemy_spawn_timeout)
-	itemSpawnTimer.timeout.connect(_on_item_spawn_timeout)
-	itemSpawnTimer.start()
+	start_game()
+	
+func _process(_delta: float) -> void:
+	if gameOver and Input.is_action_just_pressed("shoot"):
+		start_game()
+	elif !gameOver and StatsUtils.currentStats.health <= 0:
+		end_game()
+		
+func end_game():
+	gameOver = true
+	enemySpawnTimer.stop()
+	StatsUtils.stop_game()
+	
+func start_game():
+	gameOver = false
+	remove_all_enemies()
 	enemySpawnTimer.start()
+	reset_player_position()
 	StatsUtils.start_game()
-
-func _process(_delta: float) -> void: 
-	background.color = Global.theme.primary
+	
+func reset_player_position():
+	var player_node = get_node("Player")
+	if player_node != null:
+		player_node.position.x = 42
+		player_node.position.y = 24
 
 func _on_enemy_spawn_timeout() -> void:
 	if get_enemy_count() < MaxEnemySpawns:
 		spawn_enemy(EnemyTypes.Type.NORMAL)
-		
-func _on_item_spawn_timeout() -> void:
-	itemSpawnTimer.wait_time = randi_range(5,8)
-	if get_tree().get_nodes_in_group("item").size() < MaxItemSpawns+Global.playerHealth+Global.playerStuns:
-		spawn_item(randi_range(0,1))
 
 func get_enemy_count() -> int:
 	return get_tree().get_nodes_in_group(Global.EnemyGroup).size()
-	
-func spawn_item(type: int) -> void:
-	var scene
-	if type == 0:
-		scene = load("res://items/Freeze.tscn").instantiate()
-		pass
-	else:
-		scene = load("res://items/Health.tscn").instantiate()
-	scene.position = Vector2(randi_range(0,84), randi_range(0,48))
-	get_tree().root.add_child(scene)
 
 func spawn_enemy(type: int) -> void:
 	var enemyScene = load("res://enemies/basic/Enemy.tscn")
 	var enemy = enemyScene.instantiate()
 	enemy.EnemyType = type
 	enemy.position = random_spawn_position()
+	enemy.set_z_index(0)
 	get_tree().root.add_child(enemy)
+
+func remove_all_enemies() -> void:
+	for child in get_tree().get_nodes_in_group(Global.EnemyGroup):
+		child.queue_free()
 
 func random_spawn_position() -> Vector2:
 	var edge = randi() % 4
@@ -71,6 +73,3 @@ func random_spawn_position() -> Vector2:
 		_:
 			spawnPosition = Vector2.ZERO
 	return spawnPosition
-
-func random_spawn_position_for_items() -> Vector2:
-	return Vector2(randi_range(0,84), randi_range(0,48))

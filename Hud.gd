@@ -1,74 +1,76 @@
 extends Node2D
 
-@onready var shape: CollisionShape2D = $Hud/CollisionShape2D
-@onready var area: Area2D = $Hud
+const HEALTH_ICON_PATH: String = "res://assets/heartIconV1.png"
+const FREEZE_ICON_PATH: String = "res://assets/freezeIconV1.png"
 
-var flip: bool = false
+enum Icon {
+	HEALTH,
+	FREEZE
+}
 
-var healthPanels: Array[Panel] = []
-var stunPanels: Array[Panel] = []
-
-var previousHealth
-var previousStuns
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	healthPanels.append($NinePatchRect/GridContainer/Panel1)
-	healthPanels.append($NinePatchRect/GridContainer/Panel2)
-	healthPanels.append($NinePatchRect/GridContainer/Panel3)
-	stunPanels.append($NinePatchRect/GridContainer/Panel4)
-	stunPanels.append($NinePatchRect/GridContainer/Panel5)
-	stunPanels.append($NinePatchRect/GridContainer/Panel6)
-	Global.StatsChanged.connect(update_hud)
-	area.body_entered.connect(_on_body_enter)
-	previousHealth = Global.playerHealth
-	previousStuns = Global.playerStuns
-	for i in range(healthPanels.size()):
-		var healthScene = load("res://items/Health.tscn").instantiate()
-		healthPanels[i].add_child(healthScene)
-	for i in range(stunPanels.size()):
-		var stunScene = load("res://items/Freeze.tscn").instantiate()
-		stunPanels[i].add_child(stunScene)
-
-func _process(_delta):
-	if flip:
-		position = Vector2(60, 3)
-		shape.position = Vector2(5, 0)
-	else:
-		position = Vector2(3,3)
-		shape.position = Vector2(15, 24)
-
-func update_hud():
-	if Global.playerHealth < previousHealth:
-		for i in range(Global.playerHealth, healthPanels.size()):
-			var healthNode = healthPanels[i].get_node("Health")
-			if healthNode != null:
-				healthNode.queue_free()
-	else:
-		for i in range(0, Global.playerHealth):
-			var healthScene = load("res://items/Health.tscn").instantiate()
-			healthPanels[i].add_child(healthScene)
-			
-	if Global.playerStuns < previousStuns:
-		for i in range(Global.playerStuns, stunPanels.size()):
-			var freezeNode = stunPanels[i].get_node("Freeze")
-			if freezeNode != null:
-				freezeNode.queue_free()
-	else:
-		for i in range(0, Global.playerStuns):
-			var stunScene = load("res://items/Freeze.tscn").instantiate()
-			stunPanels[i].add_child(stunScene)
-			
-	previousHealth = Global.playerHealth
-	previousStuns = Global.playerStuns
+	create_background()
+	generateIcons(Icon.HEALTH)
+	generateIcons(Icon.FREEZE)
 		
-func get_sprite(path) -> Sprite2D:
-	var image = Image.load_from_file(path)
-	var texture = ImageTexture.create_from_image(image)
-	var sprite: Sprite2D = Sprite2D.new()
-	sprite.texture = texture
-	return sprite
+func _process(_delta: float) -> void:
+	update_icons(Icon.FREEZE)
+	update_icons(Icon.HEALTH)
+
+func update_icons(icon: Icon):
+	var icons = get_sprites(icon)
+	var accountedFor = 0
+	if icon == Icon.HEALTH:
+		accountedFor = StatsUtils.currentStats.health
+	else:
+		accountedFor = StatsUtils.currentStats.stuns
+	for sprite in icons:
+		if accountedFor > 0:
+			sprite.visible = true
+			accountedFor -= 1
+		else:
+			sprite.visible = false
+		
+			
+func generateIcons(icon: Icon):
+	for i in range(3):
+		var sprite = get_sprite(icon)
+		match icon:
+			Icon.HEALTH:
+				sprite.position.x = 4 + (i) * 10
+			_:
+				sprite.position.x = get_viewport_rect().size.x - (4 + (i) * 10)
+		sprite.position.y = 4
+		add_child(sprite)
+		
+func get_sprites(icon: Icon) -> Array[Sprite2D]:
+	var icons: Array[Sprite2D] = []
+	for child in get_children():
+		if child is Sprite2D:
+			var icon_path = ""
+			if icon == Icon.HEALTH:
+				icon_path = HEALTH_ICON_PATH
+			else:
+				icon_path = FREEZE_ICON_PATH
+			if child.texture.get_path() == icon_path:
+				icons.append(child)
+	return icons
 	
-func _on_body_enter(body: Node2D):
-	if !body.is_in_group(Global.PlayerGroup): return
-	flip = !flip
+func create_background():
+	var color_rect = ColorRect.new()
+	color_rect.size.x = get_viewport_rect().size.x
+	color_rect.size.y = 8
+	color_rect.color = Global.theme.primary
+	add_child(color_rect)
+	
+func get_sprite(icon: Icon) -> Sprite2D:
+	var sprite = Sprite2D.new()
+	sprite.set("icon_type", icon)
+	match icon:
+		Icon.HEALTH:
+			var texture = preload(HEALTH_ICON_PATH)
+			sprite.texture = texture
+		_:
+			var texture = preload(FREEZE_ICON_PATH)
+			sprite.texture = texture
+	return sprite

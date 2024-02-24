@@ -22,19 +22,19 @@ offset_right = 92.0
 offset_bottom = 58.0
 
 [node name="Player" parent="." instance=ExtResource("1_ce4hu")]
-position = Vector2(13, 8)
+position = Vector2(42, 20)
 
 [node name="Freeze" parent="." instance=ExtResource("4_3pfaj")]
-position = Vector2(31, 12)
+position = Vector2(13, 41)
 
 [node name="Health" parent="." instance=ExtResource("5_fqfga")]
-position = Vector2(42, 12)
+position = Vector2(70, 41)
 
 [node name="Health2" parent="." instance=ExtResource("5_fqfga")]
-position = Vector2(42, 22)
+position = Vector2(51, 41)
 
 [node name="Freeze2" parent="." instance=ExtResource("4_3pfaj")]
-position = Vector2(31, 22)
+position = Vector2(32, 41)
 
 [node name="border" type="StaticBody2D" parent="." groups=["border"]]
 collision_layer = 8
@@ -58,4 +58,4 @@ shape = SubResource("RectangleShape2D_xwreo")
 
 [node name="Hud" parent="." instance=ExtResource("5_2h84o")]
 top_level = true
-position = Vector2(50, 0)
+position = Vector2(-1, 0)

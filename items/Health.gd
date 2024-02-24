@@ -6,15 +6,13 @@ extends Node2D
 
 # Variables
 @onready var pickupArea : Area2D = $pickupArea
-@onready var meshInstance2D : MeshInstance2D = $MeshInstance2D
 
 func _ready():
 	add_to_group("item")
 	pickupArea.body_entered.connect(pickup)
 
-func _process(_delta: float) -> void:
-	# Update GUI changes
-	modulate = Global.theme.secondary
+func _process(_delta: float) -> void: pass
+	#modulate = Global.theme.secondary
 
 func pickup(body: Node) -> void:
 	if not body.is_in_group(Global.PlayerGroup):

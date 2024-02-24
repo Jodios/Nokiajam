@@ -24,8 +24,8 @@ func _ready():
 	enemySpawnTimer.start()
 	StatsUtils.start_game()
 
-func _process(_delta: float) -> void:
-	modulate = Global.theme.primary
+func _process(_delta: float) -> void: 
+	background.color = Global.theme.primary
 
 func _on_enemy_spawn_timeout() -> void:
 	if get_enemy_count() < MaxEnemySpawns:
@@ -33,7 +33,7 @@ func _on_enemy_spawn_timeout() -> void:
 		
 func _on_item_spawn_timeout() -> void:
 	itemSpawnTimer.wait_time = randi_range(5,8)
-	if get_tree().get_nodes_in_group("item").size() < MaxItemSpawns:
+	if get_tree().get_nodes_in_group("item").size() < MaxItemSpawns+Global.playerHealth+Global.playerStuns:
 		spawn_item(randi_range(0,1))
 
 func get_enemy_count() -> int:

@@ -6,7 +6,6 @@ extends CharacterBody2D
 @export var Speed : float = 900
 @export var ProjectileType : ProjectileTypes.Type = ProjectileTypes.Type.Multiply
 
-@onready var player : MeshInstance2D = $player
 var PlayerHealth : int = 0
 var Stuns : int = 0
 
@@ -22,6 +21,8 @@ var stunCoolingDown : bool = false
 @onready var multipleTimer : Timer = $multipleTimer
 @onready var circleTimer : Timer = $circleTimer
 @onready var stunTimer : Timer = $stunTimer
+@onready var animationPlayer: AnimationPlayer = $playerAnimationPlayer
+var lastPressedDirection = "right"
 
 func _ready():
 	PlayerHealth = MaxHealth
@@ -42,8 +43,11 @@ func _ready():
 	)
 
 func _process(_delta: float) -> void:
+	if velocity != Vector2.ZERO:
+		_animate_run()
+	else:
+		_animate_idle()
 	Global.setStats(PlayerHealth, Stuns)
-	modulate = Global.theme.secondary
 	_handle_shooting_action()
 	_handle_stun_action()
 
@@ -113,3 +117,51 @@ func _handle_movement(delta: float) -> void:
 	if direction != Vector2.ZERO:
 		previousDirection = direction
 	velocity = direction * Speed * delta
+	
+func _animate_run():
+	var left = Input.is_action_pressed("left")
+	var right = Input.is_action_pressed("right")
+	var up = Input.is_action_pressed("up")
+	var down = Input.is_action_pressed("down")
+	if right && up:
+		lastPressedDirection="rightup"
+		animationPlayer.play("northEastRun")
+	elif right && down:
+		lastPressedDirection="rightdown"
+		animationPlayer.play("southEastRun")
+	elif left && up:
+		lastPressedDirection="leftup"
+		animationPlayer.play("northWestRun")
+	elif left && down:
+		lastPressedDirection="leftdown"
+		animationPlayer.play("southWestRun")
+	elif right:
+		lastPressedDirection="right"
+		animationPlayer.play("eastRun")
+	elif down:
+		lastPressedDirection="down"
+		animationPlayer.play("southRun")
+	elif left:
+		lastPressedDirection="left"
+		animationPlayer.play("westRun")
+	elif up:
+		lastPressedDirection="up"
+		animationPlayer.play("northRun")
+	
+func _animate_idle():
+	if lastPressedDirection == "rightup":
+		animationPlayer.play("northEastIdle")
+	elif lastPressedDirection == "rightdown":
+		animationPlayer.play("southEastIdle")
+	elif lastPressedDirection == "leftup":
+		animationPlayer.play("northWestIdle")
+	elif lastPressedDirection == "leftdown":
+		animationPlayer.play("southWestIdle")
+	elif lastPressedDirection == "right":
+		animationPlayer.play("eastIdle")
+	elif lastPressedDirection == "down":
+		animationPlayer.play("southIdle")
+	elif lastPressedDirection == "left":
+		animationPlayer.play("westIdle")
+	elif lastPressedDirection == "up":
+		animationPlayer.play("northIdle")

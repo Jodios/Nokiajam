@@ -10,18 +10,17 @@ var player : Player
 var stunTimer : Timer
 var cooldown: bool = false
 var damageAmount
-
-@export var hitBoxDimensions : Vector2
-@onready var hitbox : Area2D = $hitbox
-@onready var hitboxBox : CollisionShape2D = $hitbox/CollisionShape2D
+var bugCooldown = false
 @onready var cooldownTimer: Timer = $cooldown
+@onready var bugCooldownTimer: Timer = $bugCooldown
 
 func _ready():
 	cooldownTimer.timeout.connect(func():
 		cooldown = false
 	)
-	hitboxBox.shape.size = hitBoxDimensions
-	hitbox.body_entered.connect(deal_damage)
+	bugCooldownTimer.timeout.connect(func():
+		bugCooldown = false
+	)
 	add_to_group(Global.EnemyGroup)
 	player = get_tree().root.get_node("Main/Player")
 	var properties = EnemyTypes.EnemyTypeProperties[EnemyType]
@@ -39,11 +38,21 @@ func _process(_delta: float) -> void:
 	modulate = Global.theme.secondary
 
 func _physics_process(_delta: float) -> void:
+	for i in range(get_slide_collision_count()-1):
+		var c: KinematicCollision2D = get_slide_collision(i)
+		var collider = c.get_collider()
+		if collider is Player && !bugCooldown:
+			bugCooldown = true
+			bugCooldownTimer.start()
+			deal_damage(c.get_collider())
+			break
 	_handle_movement()
+	move_and_slide()
 
 func deal_damage(body: Node2D):
 	if !body.is_in_group(Global.PlayerGroup) && !cooldown:
 		return
+	print(body)
 	cooldown = true
 	cooldownTimer.start()
 	(body as Player).damage(damageAmount)
@@ -70,12 +79,12 @@ func die() -> void:
 
 func _handle_movement() -> void:
 	if isStunned || player == null:
+		velocity = Vector2.ZERO
 		return
 	var playerPosition : Vector2 = player.position
 	var targetPosition : Vector2 = (playerPosition - position).normalized()
 	if position.distance_to(playerPosition) > 2:
 		velocity = targetPosition * speed
-		move_and_slide()
 		look_at(playerPosition)
 
 func _on_stun_timer_timeout() -> void:

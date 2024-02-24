@@ -4,6 +4,7 @@ extends Node2D
 @export var MaxEnemySpawns : int = 10
 @export var MaxItemSpawns : int = 5
 @onready var background : ColorRect = $background
+@onready var hud = $Hud
 var playing = false
 
 var enemySpawnTimer : Timer

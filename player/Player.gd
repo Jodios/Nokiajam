@@ -24,10 +24,12 @@ var stunCoolingDown : bool = false
 @onready var stunTimer : Timer = $stunTimer
 
 func _ready():
-	previousDirection = Vector2.RIGHT
-	add_to_group(Global.PlayerGroup)
 	PlayerHealth = MaxHealth
 	Stuns = MaxStuns
+	Global.playerHealth = PlayerHealth
+	Global.playerStuns = Stuns
+	previousDirection = Vector2.RIGHT
+	add_to_group(Global.PlayerGroup)
 	cooldownTimer.timeout.connect(_on_cooldown_timeout)
 	multipleTimer.timeout.connect(func ():
 		multipleCoolingDown = false
@@ -40,6 +42,7 @@ func _ready():
 	)
 
 func _process(_delta: float) -> void:
+	Global.setStats(PlayerHealth, Stuns)
 	modulate = Global.theme.secondary
 	_handle_shooting_action()
 	_handle_stun_action()

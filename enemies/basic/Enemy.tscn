@@ -6,27 +6,33 @@
 size = Vector2(1, 3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gxfw6"]
-size = Vector3(1, 3, 1)
+size = Vector3(1, 3, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c35ix"]
-size = Vector2(1, 3)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dttqa"]
+size = Vector2(3, 3)
 
 [node name="Enemy" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 3
 collision_mask = 7
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_mh3d4")
-hitBoxDimensions = Vector2(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 shape = SubResource("RectangleShape2D_gaw5r")
 
 [node name="enemy" type="MeshInstance2D" parent="."]
+scale = Vector2(1, 0.833333)
 mesh = SubResource("BoxMesh_gxfw6")
 
 [node name="hitbox" type="Area2D" parent="."]
+position = Vector2(0.48, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
-shape = SubResource("RectangleShape2D_c35ix")
+shape = SubResource("RectangleShape2D_dttqa")
 
 [node name="cooldown" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="bugCooldown" type="Timer" parent="."]

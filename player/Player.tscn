@@ -11,6 +11,8 @@ size = Vector2(5, 9)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 25
 collision_mask = 11
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_qafjk")
 
 [node name="player" type="MeshInstance2D" parent="."]

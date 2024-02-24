@@ -113,3 +113,4 @@ shootcircle={
 
 textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0.262745, 0.321569, 0.239216, 1)
+2d/snap/snap_2d_vertices_to_pixel=true

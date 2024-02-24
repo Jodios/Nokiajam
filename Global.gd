@@ -16,6 +16,17 @@ var themes = {
 	}
 }
 
+signal StatsChanged
+var playerHealth = 0
+var playerStuns = 0
+func setStats(h, s):
+	if h != playerHealth || s != playerStuns:
+		playerHealth = h
+		playerStuns = s
+		emit_signal("StatsChanged")
+	playerHealth = h
+	playerStuns = s
+
 var themeIdx : int = 2
 var theme : Dictionary = themes.values()[themeIdx]
 

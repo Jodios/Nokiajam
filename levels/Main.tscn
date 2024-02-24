@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://de5th28ua2gxc"]
+[gd_scene load_steps=8 format=3 uid="uid://de5th28ua2gxc"]
 
 [ext_resource type="PackedScene" uid="uid://kji6pcjky1s3" path="res://player/Player.tscn" id="1_ce4hu"]
 [ext_resource type="Script" path="res://levels/Main.gd" id="1_sd0x3"]
 [ext_resource type="PackedScene" uid="uid://dw4ophk8uidr7" path="res://items/Freeze.tscn" id="4_3pfaj"]
+[ext_resource type="PackedScene" uid="uid://75lvlf4eb52l" path="res://Hud.tscn" id="5_2h84o"]
 [ext_resource type="PackedScene" uid="uid://bnasa2jjmrkb7" path="res://items/Health.tscn" id="5_fqfga"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5s2dg"]
@@ -54,3 +55,7 @@ shape = SubResource("RectangleShape2D_xwreo")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="border" groups=["border"]]
 position = Vector2(87.8594, 24)
 shape = SubResource("RectangleShape2D_xwreo")
+
+[node name="Hud" parent="." instance=ExtResource("5_2h84o")]
+top_level = true
+position = Vector2(50, 0)

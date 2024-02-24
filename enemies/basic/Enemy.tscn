@@ -24,23 +24,6 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_l32uc"]
-resource_name = "up"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySpriteV1:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [24, 25, 26, 27, 28, 29]
-}
-
 [sub_resource type="Animation" id="Animation_xojfl"]
 resource_name = "down"
 length = 0.6
@@ -58,8 +41,25 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_1otny"]
-resource_name = "right"
+[sub_resource type="Animation" id="Animation_cndop"]
+resource_name = "downleft"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EnemySpriteV1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [42, 43, 44]
+}
+
+[sub_resource type="Animation" id="Animation_fpt1o"]
+resource_name = "downright"
 length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
@@ -92,8 +92,8 @@ tracks/0/keys = {
 "values": [36, 37, 38]
 }
 
-[sub_resource type="Animation" id="Animation_fpt1o"]
-resource_name = "downright"
+[sub_resource type="Animation" id="Animation_1otny"]
+resource_name = "right"
 length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
@@ -109,9 +109,9 @@ tracks/0/keys = {
 "values": [6, 7, 8]
 }
 
-[sub_resource type="Animation" id="Animation_4hp5u"]
-resource_name = "upright"
-length = 0.3
+[sub_resource type="Animation" id="Animation_l32uc"]
+resource_name = "up"
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -120,10 +120,10 @@ tracks/0/path = NodePath("EnemySpriteV1:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [18, 19, 20]
+"values": [24, 25, 26, 27, 28, 29]
 }
 
 [sub_resource type="Animation" id="Animation_6br52"]
@@ -143,8 +143,8 @@ tracks/0/keys = {
 "values": [30, 31, 32]
 }
 
-[sub_resource type="Animation" id="Animation_cndop"]
-resource_name = "downleft"
+[sub_resource type="Animation" id="Animation_4hp5u"]
+resource_name = "upright"
 length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
@@ -157,7 +157,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [42, 43, 44]
+"values": [18, 19, 20]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_og87q"]

@@ -54,7 +54,7 @@ func deal_damage(body: Node2D):
 		return
 	cooldown = true
 	cooldownTimer.start()
-	(body as Player).damage(damageAmount)
+	(body as Player).damage()
 
 func stun() -> void:
 	StatsUtils.add_enemy_stunned()

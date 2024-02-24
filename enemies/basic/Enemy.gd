@@ -30,7 +30,6 @@ func _ready():
 	stunTimer.one_shot = true
 	stunTimer.wait_time = stunDuration
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
-	animationTree["parameters/run/blend_position"] = direction
 	modulate = Global.theme.secondary
 	
 func _on_Player_body_entered():
@@ -40,6 +39,7 @@ func _on_Player_body_exited():
 	player_contact = false
 		
 func _process(_delta):
+	animationTree["parameters/run/blend_position"] = direction
 	if player_contact:
 		player.damage()
 

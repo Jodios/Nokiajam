@@ -12,8 +12,6 @@ var cooldown: bool = false
 var damageAmount
 var bugCooldown = false
 var direction: Vector2 = Vector2.ZERO
-@onready var cooldownTimer: Timer = $cooldown
-@onready var bugCooldownTimer: Timer = $bugCooldown
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var animationTree: AnimationTree = $AnimationTree
 var player_contact = false
@@ -30,7 +28,6 @@ func _ready():
 	stunTimer.one_shot = true
 	stunTimer.wait_time = stunDuration
 	stunTimer.timeout.connect(_on_stun_timer_timeout)
-	modulate = Global.theme.secondary
 	
 func _on_Player_body_entered():
 	player_contact = true
@@ -53,7 +50,6 @@ func deal_damage(body: Node2D):
 	if !body.is_in_group(Global.PlayerGroup) && !cooldown:
 		return
 	cooldown = true
-	cooldownTimer.start()
 	(body as Player).damage()
 
 func stun() -> void:

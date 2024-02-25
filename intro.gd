@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var background = $background
-var startable = false
 
 func _ready():
 	SoundUtils.play_music()
@@ -10,10 +9,9 @@ func _ready():
 	animationPlayer.play("introPart1")
 	animationPlayer.animation_finished.connect(func(_name):
 		animationPlayer.play("introPart2")
-		startable = true
 	)
 
 func _process(_delta):
-	if Input.is_action_just_pressed("shoot") && startable:
+	if Input.is_action_just_pressed("shoot"):
 		SoundUtils.stop_music()
 		get_tree().change_scene_to_file("res://levels/Main.tscn")

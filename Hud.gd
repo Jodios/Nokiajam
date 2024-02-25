@@ -30,6 +30,8 @@ func update_icons(icon: Icon):
 			accountedFor -= 1
 		else:
 			sprite.visible = false
+		if StatsUtils.currentStats.health == 0:
+			sprite.visible = false
 		
 			
 func generateIcons(icon: Icon):
@@ -46,6 +48,10 @@ func generateIcons(icon: Icon):
 func get_sprites(icon: Icon) -> Array[Sprite2D]:
 	var icons: Array[Sprite2D] = []
 	for child in get_children():
+		if StatsUtils.currentStats.health == 0 and child is ColorRect:
+			child.visible = false
+		elif StatsUtils.currentStats.health != 0 and child is ColorRect:
+			child.visible = true
 		if child is Sprite2D:
 			var icon_path = ""
 			if icon == Icon.HEALTH:

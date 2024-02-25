@@ -4,16 +4,14 @@ extends CharacterBody2D
 @export var Speed : float = 900
 @export var ProjectileType : ProjectileTypes.Type = ProjectileTypes.Type.Multiply
 
-signal PlayerPerished
+signal circle_shot_fired
 
 var previousDirection : Vector2
-var coolingDown : bool = false
 var circleCoolingDown : bool = false
 var multipleCoolingDown : bool = false
 var stunCoolingDown : bool = false
 var damageCoolingDown : bool = false
 
-@onready var cooldownTimer : Timer = $cooldown
 @onready var multipleTimer : Timer = $multipleTimer
 @onready var circleTimer : Timer = $circleTimer
 @onready var damageTimer : Timer = $damageTimer
@@ -24,7 +22,6 @@ var lastPressedDirection = "right"
 func _ready():
 	previousDirection = Vector2.RIGHT
 	add_to_group(Global.PlayerGroup)
-	cooldownTimer.timeout.connect(_on_cooldown_timeout)
 	$hitbox.connect("body_entered", Callable(self, "_on_body_entered"))
 	$hitbox.connect("body_exited", Callable(self, "_on_body_exited"))
 	multipleTimer.timeout.connect(func ():
@@ -55,6 +52,8 @@ func _process(_delta: float) -> void:
 		_animate_run()
 	else:
 		_animate_idle()
+	if abs(StatsUtils.startTime - Time.get_ticks_msec()) <= 10:
+		return
 	_handle_shooting_action()
 	_handle_stun_action()
 
@@ -63,9 +62,6 @@ func _physics_process(delta: float) -> void:
 		return
 	_handle_movement(delta)
 	move_and_slide()
-
-func _on_cooldown_timeout() -> void:
-	coolingDown = false
 
 func damage() -> void:
 	if damageCoolingDown:
@@ -78,6 +74,7 @@ func damage() -> void:
 	if StatsUtils.currentStats.health > 0:
 		damageCoolingDown = true
 		damageTimer.start()
+		SoundUtils.play_player_hit()
 	else:
 		animationPlayer.play("northIdle")
 
@@ -91,12 +88,7 @@ func _handle_stun_action() -> void:
 			enemy.stun()
 
 func _handle_shooting_action() -> void:
-	if !coolingDown && Input.is_action_just_pressed("shoot"):
-		SoundUtils.play_shooting_sound()
-		coolingDown = true
-		cooldownTimer.start()
-		_spawn_projectile("res://projectiles/BasicProjectile.tscn")
-	if !multipleCoolingDown && Input.is_action_just_pressed("shootmultiple"):
+	if !multipleCoolingDown && Input.is_action_just_pressed("shoot"):
 		SoundUtils.play_shooting_sound()
 		multipleCoolingDown = true
 		multipleTimer.start()
@@ -104,14 +96,9 @@ func _handle_shooting_action() -> void:
 	if !circleCoolingDown && Input.is_action_just_pressed("shootcircle"):
 		SoundUtils.play_shooting_sound()
 		circleCoolingDown = true
+		emit_signal("circle_shot_fired")
 		circleTimer.start()
 		_multiply_projectile(60, "res://projectiles/BasicProjectile.tscn")
-
-func _spawn_projectile(path: String) -> void:
-	var projectileScene = load(path)
-	var projectile = projectileScene.instantiate()
-	projectile.start(global_position + Vector2(0, 0), previousDirection, self)
-	get_tree().root.add_child(projectile)
 
 func _multiply_projectile(amount: int, path: String) -> void:
 	var projectileScene = load(path)

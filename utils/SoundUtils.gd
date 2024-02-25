@@ -7,6 +7,7 @@ extends Node
 @onready var EnemyHit : AudioStreamPlayer = $EnemyHit
 @onready var Shoot : AudioStreamPlayer = $Shoot
 @onready var Music : AudioStreamPlayer = $Music
+@onready var PlayerHit : AudioStreamPlayer = $PlayerHit
 var playing : bool = false
 
 func _ready():
@@ -16,6 +17,7 @@ func _ready():
 	Perish.finished.connect(_on_finished)
 	EnemyHit.finished.connect(_on_finished)
 	Shoot.finished.connect(_on_finished)
+	PlayerHit.finished.connect(_on_finished)
 
 func play_music() -> void:
 	Music.play(0)
@@ -42,6 +44,9 @@ func play_enemy_hit_sound() -> void:
 
 func play_shooting_sound() -> void:
 	_play_sound(Shoot)
+	
+func play_player_hit() -> void:
+	_play_sound(PlayerHit)
 
 func _play_sound(player: AudioStreamPlayer) -> void:
 	if playing:

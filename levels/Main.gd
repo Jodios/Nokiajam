@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var EnemySpawnInterval : float = 4
+@export var EnemySpawnInterval : float = 2
 @export var MaxEnemySpawns : float = 10.0
 
 var enemySpawnTimer : Timer
@@ -13,11 +13,15 @@ func _ready():
 	enemySpawnTimer.timeout.connect(_on_enemy_spawn_timeout)
 	start_game()
 	
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	StatsUtils.timeElapsed = (Time.get_ticks_msec() - StatsUtils.startTime) / 1000.0
 	if StatsUtils.timeElapsed >= 1:
 		var newWaitTime = EnemySpawnInterval * pow(0.99, StatsUtils.timeElapsed)
-		enemySpawnTimer.wait_time = max(.5, newWaitTime)
+		enemySpawnTimer.wait_time = max(.25, newWaitTime)
+		var newMaxEnemySpawns = MaxEnemySpawns  * (pow(1.0000005, StatsUtils.timeElapsed))
+		MaxEnemySpawns = min(15, newMaxEnemySpawns)
+	
+func _process(_delta: float) -> void:
 	if gameOver and Input.is_action_just_pressed("shoot"):
 		start_game()
 	elif !gameOver and StatsUtils.currentStats.health <= 0:
@@ -53,7 +57,7 @@ func present_game_over():
 	var score_label = Label.new()
 	score_label.add_theme_color_override("font_color", Global.theme.secondary)
 	score_label.text = "Score: " + str(StatsUtils.get_latest_stat().score)
-	score_label.offset_top = 11.0
+	score_label.offset_top = 18.0
 	score_label.offset_right = 84.0
 	score_label.offset_bottom = 25.0
 	score_label.add_theme_font_override("font", font)
@@ -65,7 +69,7 @@ func present_game_over():
 	var highscore_label = Label.new()
 	highscore_label.add_theme_color_override("font_color", Global.theme.secondary)
 	highscore_label.text = "Best: " + str(StatsUtils.get_highscore().score)
-	highscore_label.offset_top = 20.0
+	highscore_label.offset_top = 28.0
 	highscore_label.offset_right = 84.0
 	highscore_label.offset_bottom = 25.0
 	highscore_label.add_theme_font_override("font", font)
@@ -73,10 +77,17 @@ func present_game_over():
 	highscore_label.horizontal_alignment = 1
 	highscore_label.vertical_alignment = 1
 	add_child(highscore_label)
+	
+	var logo = Sprite2D.new()
+	var texture = preload("res://assets/title.png")
+	logo.texture = texture
+	logo.position.x = get_viewport_rect().size.x / 2
+	logo.position.y = 9
+	add_child(logo)
 
 func remove_game_over():
 	for child in get_children():
-		if child is ColorRect or child is Label:
+		if child is ColorRect or child is Label or child is Sprite2D:
 			child.queue_free()
 	
 func reset_player_position():

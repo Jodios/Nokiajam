@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://uwnu8nypbnr4"]
+
+[ext_resource type="Script" path="res://GameOver.gd" id="1_lhgfb"]
+[ext_resource type="FontFile" uid="uid://b2thtrt3thdwj" path="res://assets/fonts/Pixeled.ttf" id="2_y620x"]
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_lhgfb")
+
+[node name="background" type="ColorRect" parent="."]
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 92.0
+offset_bottom = 58.0
+
+[node name="scoreLabel" type="Label" parent="."]
+offset_top = 11.0
+offset_right = 84.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("2_y620x")
+theme_override_font_sizes/font_size = 5
+text = "Score: "
+horizontal_alignment = 1
+vertical_alignment = 1

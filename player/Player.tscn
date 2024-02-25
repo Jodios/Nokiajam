@@ -332,14 +332,11 @@ vframes = 16
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yp1qp")
 
-[node name="cooldown" type="Timer" parent="."]
-wait_time = 0.1
-
 [node name="multipleTimer" type="Timer" parent="."]
-wait_time = 0.8
+wait_time = 0.5
 
 [node name="circleTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 
 [node name="stunTimer" type="Timer" parent="."]
 wait_time = 0.5

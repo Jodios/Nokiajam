@@ -8,14 +8,64 @@ enum Icon {
 	FREEZE
 }
 
+var e_mask : ColorRect
+var e_reveal_timer : Timer
+
 func _ready():
 	create_background()
 	generateIcons(Icon.HEALTH)
 	generateIcons(Icon.FREEZE)
+	set_up_circle_cooldown_connections()
+	create_e_label()
+	create_e_mask()
+	create_e_reveal_timer()
+	stop_e_cooldown()
+	
+func create_e_reveal_timer():
+	e_reveal_timer = Timer.new()
+	e_reveal_timer.timeout.connect(func():
+		e_mask.position.y -= 1
+	)
+	e_reveal_timer.wait_time = 1
+	add_child(e_reveal_timer)
+	
+func create_e_mask():
+	e_mask = ColorRect.new()
+	e_mask.color = Global.theme.primary
+	e_mask.size.x = 5
+	e_mask.size.y = 5
+	e_mask.position.x = (get_viewport_rect().size.x / 2) - 2
+	e_mask.z_index = 15
+	add_child(e_mask)
+	
+func create_e_label():
+	var font = load("res://assets/fonts/Pixeled.ttf")
+	var e_label = Label.new()
+	e_label.add_theme_color_override("font_color", Global.theme.secondary)
+	e_label.text = "e"
+	e_label.position.y = -4
+	e_label.position.x = (get_viewport_rect().size.x / 2) - 2
+	e_label.add_theme_font_override("font", font)
+	e_label.add_theme_font_size_override("font_size", 5)
+	add_child(e_label)
+	
+func set_up_circle_cooldown_connections():
+	var circleTimerNode = get_node("/root/Main/Player/circleTimer")
+	circleTimerNode.connect("timeout", Callable(self, "present_circle_shot_ready"))
+	var playerNode = get_node("/root/Main/Player")
+	playerNode.connect("circle_shot_fired", Callable(self, "start_e_cooldown"))
 		
 func _process(_delta: float) -> void:
 	update_icons(Icon.FREEZE)
 	update_icons(Icon.HEALTH)
+	
+func start_e_cooldown():
+	e_mask.position.y = 2
+	e_reveal_timer.start()
+	
+func stop_e_cooldown():
+	e_reveal_timer.stop()
+	e_mask.position.y = -6
 
 func update_icons(icon: Icon):
 	var icons = get_sprites(icon)
@@ -31,7 +81,9 @@ func update_icons(icon: Icon):
 		else:
 			sprite.visible = false
 		if StatsUtils.currentStats.health == 0:
-			sprite.visible = false
+			visible = false
+		else:
+			visible = true
 		
 			
 func generateIcons(icon: Icon):
@@ -48,10 +100,6 @@ func generateIcons(icon: Icon):
 func get_sprites(icon: Icon) -> Array[Sprite2D]:
 	var icons: Array[Sprite2D] = []
 	for child in get_children():
-		if StatsUtils.currentStats.health == 0 and child is ColorRect:
-			child.visible = false
-		elif StatsUtils.currentStats.health != 0 and child is ColorRect:
-			child.visible = true
 		if child is Sprite2D:
 			var icon_path = ""
 			if icon == Icon.HEALTH:

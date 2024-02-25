@@ -10,7 +10,7 @@ func _ready():
 		"font_color", 
 		Global.theme.secondary
 	)
-	scoreLabel.text = "Score: " + str(StatsUtils.timeElapsed * StatsUtils.currentStats.enemiesKilled)
+	scoreLabel.text = "Score: " + str((StatsUtils.timeElapsed*StatsUtils.SCORE_CONST) + StatsUtils.currentStats.enemiesKilled)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -3,6 +3,7 @@ extends Node
 var _data = []
 const SAVE_PATH: String = "user://stats.save"
 const STATS: String = "stats"
+const SCORE_CONST = 10
 
 var startTime = Time.get_ticks_msec()
 var timeElapsed = 0

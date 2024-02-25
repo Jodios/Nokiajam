@@ -10,6 +10,8 @@ var timeElapsed = 0
 var currentStats = {}
 
 func _ready():
+	# uncomment below to reset saved data when model changes
+	# delete_saved_data()
 	load_stats_from_file()
 
 func get_latest_stat():
@@ -17,6 +19,15 @@ func get_latest_stat():
 		return null
 	var lastIndex = _data.size() - 1
 	return _data[lastIndex]
+	
+func get_highscore():
+	if _data.size() == 0:
+		return null
+	var highest_score_entry = _data[0]
+	for entry in _data:
+		if entry.score > highest_score_entry.score:
+			highest_score_entry = entry
+	return highest_score_entry
 
 func start_game() -> void:
 	startTime = Time.get_ticks_msec()
@@ -31,7 +42,8 @@ func start_game() -> void:
 		"stunsUsed": 0,
 		"enemiesStunned": 0,
 		"health": 3,
-		"stuns": 3
+		"stuns": 3,
+		"score": 0
 	}
 
 func stop_game(saveStats: bool = true) -> void:
@@ -74,6 +86,7 @@ func save_stats() -> void:
 	currentStats.ID = _data.size() + 1
 	var elapsedTime = Time.get_ticks_msec() - startTime
 	currentStats.timePlayed = float(elapsedTime / 1000.0)
+	currentStats.score = int(currentStats.timePlayed + (currentStats.enemiesKilled * SCORE_CONST))
 	save_stats_to_file()
 
 func save_stats_to_file() -> void:

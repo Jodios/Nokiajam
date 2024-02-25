@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://duxlx1rc5qw0e" path="res://assets/playerSpriteV4.png" id="1_2fhvi"]
 [ext_resource type="Script" path="res://intro.gd" id="1_6c3af"]
-[ext_resource type="Texture2D" path="res://assets/enemySpriteV2.png" id="3_raq06"]
-[ext_resource type="Texture2D" path="res://assets/title.png" id="4_acwho"]
-[ext_resource type="Texture2D" path="res://assets/pressStartSpriteV1.png" id="4_b5nfk"]
+[ext_resource type="Texture2D" uid="uid://dwhojxxppjjp4" path="res://assets/enemySpriteV2.png" id="3_raq06"]
+[ext_resource type="Texture2D" uid="uid://1o8pwi45t5il" path="res://assets/title.png" id="4_acwho"]
+[ext_resource type="Texture2D" uid="uid://fq432lbb2u4f" path="res://assets/pressStartSpriteV1.png" id="4_b5nfk"]
 
 [sub_resource type="Animation" id="Animation_rjei2"]
 length = 0.001

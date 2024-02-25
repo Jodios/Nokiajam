@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var EnemySpawnInterval : float = 4
-@export var MaxEnemySpawns : float = 8.0
+@export var MaxEnemySpawns : float = 10.0
 
 var enemySpawnTimer : Timer
 var gameOver = false
@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 	StatsUtils.timeElapsed = (Time.get_ticks_msec() - StatsUtils.startTime) / 1000.0
 	if StatsUtils.timeElapsed >= 1:
 		var newWaitTime = EnemySpawnInterval * pow(0.99, StatsUtils.timeElapsed)
-		enemySpawnTimer.wait_time = max(1, newWaitTime)
+		enemySpawnTimer.wait_time = max(.5, newWaitTime)
 	if gameOver and Input.is_action_just_pressed("shoot"):
 		start_game()
 	elif !gameOver and StatsUtils.currentStats.health <= 0:

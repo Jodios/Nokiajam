@@ -16,6 +16,7 @@ func _ready():
 	start_game()
 	
 func _process(_delta: float) -> void:
+	StatsUtils.timeElapsed = (Time.get_ticks_msec() - StatsUtils.startTime) / 1000
 	if gameOver and Input.is_action_just_pressed("shoot"):
 		start_game()
 	elif !gameOver and StatsUtils.currentStats.health <= 0:
@@ -52,7 +53,7 @@ func spawn_enemy(type: int) -> void:
 	enemy.EnemyType = type
 	enemy.position = random_spawn_position()
 	enemy.set_z_index(0)
-	get_tree().root.add_child(enemy)
+	add_child(enemy)
 
 func remove_all_enemies() -> void:
 	for child in get_tree().get_nodes_in_group(Global.EnemyGroup):

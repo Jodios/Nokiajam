@@ -5,6 +5,7 @@ const SAVE_PATH: String = "user://stats.save"
 const STATS: String = "stats"
 
 var startTime = Time.get_ticks_msec()
+var timeElapsed = 0
 var currentStats = {}
 
 func _ready():

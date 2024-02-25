@@ -80,6 +80,7 @@ func damage() -> void:
 		damageTimer.start()
 	else:
 		animationPlayer.play("northIdle")
+		get_tree().change_scene_to_file("res://GameOver.tscn")
 
 func _handle_stun_action() -> void:
 	if Input.is_action_just_pressed("freeze") && StatsUtils.currentStats.stuns > 0 && !stunCoolingDown:

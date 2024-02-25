@@ -18,6 +18,8 @@ func _ready():
 func _process(delta: float) -> void:
 	modulate = Global.theme.secondary
 	position += Speed * direction * delta
+	if StatsUtils.currentStats.health <= 0:
+		queue_free()
 
 func start(startPosition: Vector2, dir: Vector2, p: Player) -> void:
 	position = startPosition

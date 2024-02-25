@@ -5,6 +5,7 @@ extends Node2D
 
 var enemySpawnTimer : Timer
 var gameOver = false
+var gameOverTime = Time.get_ticks_msec()
 
 func _ready():
 	enemySpawnTimer = Timer.new()
@@ -22,17 +23,18 @@ func _physics_process(_delta: float) -> void:
 		MaxEnemySpawns = min(15, newMaxEnemySpawns)
 	
 func _process(_delta: float) -> void:
-	if gameOver and Input.is_action_just_pressed("shoot"):
+	if gameOver and Input.is_action_just_pressed("shoot") and abs(gameOverTime - Time.get_ticks_msec()) > 1000:
 		start_game()
 	elif !gameOver and StatsUtils.currentStats.health <= 0:
 		end_game()
 		
 func end_game():
+	gameOverTime = Time.get_ticks_msec()
 	SoundUtils.play_perish_sound()
-	gameOver = true
 	enemySpawnTimer.stop()
 	StatsUtils.stop_game()
 	present_game_over()
+	gameOver = true
 	
 func start_game():
 	gameOver = false
